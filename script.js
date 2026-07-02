@@ -301,7 +301,7 @@ const thumbPositions = new Map();
 
 const THUMB_SIZE   = 86;              // must match .thumb width/height in CSS
 const THUMB_GAP    = 30;              // minimum breathing room between neighbouring thumbs
-const FRAME_INSET  = -THUMB_SIZE / 2; // negative = the travel path sits outside stage-wrap's
+const FRAME_INSET  = THUMB_SIZE / 6; // negative = the travel path sits outside stage-wrap's
                                        // edges, so each thumb straddles the border half in/half out
 
 // Walks clockwise from the top-left corner and returns the {x,y} point
