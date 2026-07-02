@@ -293,30 +293,20 @@ function renderStage(fade){
   }
 }
 
+// Thumbs are positioned with `left`/`top` as percentages, and .thumb has no
+// positioned ancestor between it and .stage-wrap (see #thumbRow in
+// index.html) -- so a percentage here is *always* relative to stage-wrap's
+// own box. No window measurements, no manual offset fudging.
 const thumbPositions = new Map();
 
-const THUMB_SIZE   = 86; // must match .thumb width/height in CSS
-const THUMB_GAP    = 30; // minimum breathing room between neighbouring thumbs
-const FRAME_INSET  = -60; // px the "frame" sits in from the stage-wrap edges
-
-// Rectangle (in px) that the thumbs travel around, inset from the
-// container edges so they hug the border of the stage/video underneath.
-function frameRect(containerW, containerH, inset){
-  const video = document.querySelector(".stage-wrap");
-  if(!video) return { rw: containerW, rh: containerH, perimeter: 0 };
-
-  const rect = video.getBoundingClientRect();
-
-  const rw = rect.width - inset * 8;
-  const rh = rect.height - inset;
-
-  const perimeter = 2 * (rw + rh);
-
-  return { rw, rh, perimeter, rect };
-}
+const THUMB_SIZE   = 86;              // must match .thumb width/height in CSS
+const THUMB_GAP    = 30;              // minimum breathing room between neighbouring thumbs
+const FRAME_INSET  = -THUMB_SIZE / 2; // negative = the travel path sits outside stage-wrap's
+                                       // edges, so each thumb straddles the border half in/half out
 
 // Walks clockwise from the top-left corner and returns the {x,y} point
-// (relative to the frame) that sits `dist` px along the perimeter.
+// (relative to the frame's own top-left) that sits `dist` px along the
+// perimeter of a rw x rh rectangle.
 function pointOnFrame(dist, rw, rh){
   const perimeter = 2 * (rw + rh);
   dist = ((dist % perimeter) + perimeter) % perimeter;
@@ -330,11 +320,18 @@ function pointOnFrame(dist, rw, rh){
   return { x: 0, y: rh - dist, edge: "left" };
 }
 
+// Places any not-yet-positioned slugs around a rectangle inset (or, with a
+// negative FRAME_INSET, expanded) from the stage-wrap box, storing each as a
+// stage-wrap-relative percentage. Already-placed slugs are left alone, so
+// thumbs stay put across re-renders and team switches.
 function layoutThumbs(slugs, containerW, containerH){
   const unplaced = slugs.filter(s => !thumbPositions.has(s));
   if(unplaced.length === 0) return;
 
-  const { rw, rh, perimeter } = frameRect(containerW, containerH, FRAME_INSET);
+  const rw = containerW - 2 * FRAME_INSET;
+  const rh = containerH - 2 * FRAME_INSET;
+  const perimeter = 2 * (rw + rh);
+
   const slot = perimeter / unplaced.length;
   const maxJitter = Math.max(0, (slot - THUMB_SIZE - THUMB_GAP) / 2);
   const startOffset = Math.random() * perimeter;
@@ -352,12 +349,10 @@ function layoutThumbs(slugs, containerW, containerH){
     if(spot.edge === "top" || spot.edge === "bottom") py += perp;
     else px += perp;
 
-    const video = document.querySelector(".stage-video");
-    const rect = video.getBoundingClientRect();
-
+    // back into stage-wrap-relative coords, then to a %
     thumbPositions.set(slug, {
-      x: ((rect.left + FRAME_INSET + px - 200) / window.innerWidth) * 100,
-      y: ((rect.top + FRAME_INSET + py + 80) / window.innerHeight) * 100
+      x: ((FRAME_INSET + px) / containerW) * 100,
+      y: ((FRAME_INSET + py) / containerH) * 100
     });
   });
 }
@@ -421,7 +416,7 @@ function buildThumbs(row){
     // entrance state -- transitioned away below, riding the same
     // opacity/transform transition used for the highlight/dim fade
     t.style.opacity = "0";
-    t.style.transform = "scale(0.3)";
+    t.style.transform = "translate(-50%, -50%) scale(0.3)";
     t.style.transitionDelay = (Math.min(i, 24) * 16) + "ms";
 
     t.innerHTML = `
