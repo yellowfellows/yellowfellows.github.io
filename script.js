@@ -16,20 +16,20 @@ const TEAMS = {
   YF: {
     name: "Yellow Fellows",
     accent: "#FFC94A",
-    estDate: "2024",
-    description: "Our first and core team."
-  },
-  PPYP: {
-    name: "Penno Pineapple Yellow Pen",
-    accent: "#f9ff4b",
-    estDate: "2025",
-    description: "Our late timeslot team, bringing together players from Pennultimate."
+    estDate: "May 2024",
+    description: "Our core team, currently playing Monday nights at NSU."
   },
   YS: {
     name: "The Yellowship",
     accent: "#ffbf1f",
-    estDate: "2024",
-    description: "Our Wednesday Hills social team."
+    estDate: "Sep 2024",
+    description: "Our Wednesday Hills fun & frothers team."
+  },
+  PPYP: {
+    name: "Penno Pineapple Yellow Pen",
+    accent: "#f9ff4b",
+    estDate: "Oct 2025",
+    description: "Our late timeslot competitive team, bringing together players from Pennultimate."
   },
 };
 
@@ -280,8 +280,6 @@ function renderStage(fade){
     ff.textContent = p.funfact || "fun fact coming soon…";
     ff.className = "funfact" + (p.funfact ? "" : " empty");
 
-    document.getElementById("stageCounter").textContent = `${idx + 1} / ${roster.length}`;
-
     figure.classList.remove("fade");
     card.classList.remove("fade");
   };
@@ -297,20 +295,20 @@ function renderStage(fade){
 
 const thumbPositions = new Map();
 
-const THUMB_SIZE   = 56; // must match .thumb width/height in CSS
-const THUMB_GAP    = 18; // minimum breathing room between neighbouring thumbs
-const FRAME_INSET  = -50; // px the "frame" sits in from the stage-wrap edges
+const THUMB_SIZE   = 86; // must match .thumb width/height in CSS
+const THUMB_GAP    = 30; // minimum breathing room between neighbouring thumbs
+const FRAME_INSET  = -60; // px the "frame" sits in from the stage-wrap edges
 
 // Rectangle (in px) that the thumbs travel around, inset from the
 // container edges so they hug the border of the stage/video underneath.
 function frameRect(containerW, containerH, inset){
-  const video = document.querySelector(".stage-video");
+  const video = document.querySelector(".stage-wrap");
   if(!video) return { rw: containerW, rh: containerH, perimeter: 0 };
 
   const rect = video.getBoundingClientRect();
 
-  const rw = rect.width - inset * 2;
-  const rh = rect.height - inset * 2;
+  const rw = rect.width - inset * 8;
+  const rh = rect.height - inset;
 
   const perimeter = 2 * (rw + rh);
 
@@ -332,11 +330,6 @@ function pointOnFrame(dist, rw, rh){
   return { x: 0, y: rh - dist, edge: "left" };
 }
 
-// Lays every slug out along an evenly-spaced ring around the stage, with a
-// little randomised jitter so it still reads as "scattered" -- but because
-// each thumb gets its own fixed-width slot on the perimeter, jitter is
-// capped well below the slot size, which is what actually guarantees no
-// two thumbs can ever collide (rather than hoping random points miss).
 function layoutThumbs(slugs, containerW, containerH){
   const unplaced = slugs.filter(s => !thumbPositions.has(s));
   if(unplaced.length === 0) return;
@@ -363,8 +356,8 @@ function layoutThumbs(slugs, containerW, containerH){
     const rect = video.getBoundingClientRect();
 
     thumbPositions.set(slug, {
-      x: ((rect.left + FRAME_INSET + px - 30) / window.innerWidth) * 100,
-      y: ((rect.top + FRAME_INSET + py + 100) / window.innerHeight) * 100
+      x: ((rect.left + FRAME_INSET + px - 200) / window.innerWidth) * 100,
+      y: ((rect.top + FRAME_INSET + py + 80) / window.innerHeight) * 100
     });
   });
 }
