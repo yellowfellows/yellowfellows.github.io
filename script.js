@@ -1,5 +1,4 @@
 /* =========================================================
-   THE YELLOW SQUAD — shared script
    Loaded on every page. Functions guard themselves so only
    the relevant page's markup gets touched.
 
@@ -38,17 +37,29 @@ const PLAYER_INFO = {
     nickname: "Michael Reeves",
     quote: "Well, well, well.",
     funfact: "When he's attacking the disc, guard him hard. When he's attacking your food, guard your food."
+  },
+
+  "Richard Lo": {
+    nickname: "Gout Gout",
+    quote: "Go long.",
+    funfact: "His Valorant and handler callouts are exactly the same."
+  },
+
+  "Michael Nyunt": {
+    nickname: "DDS Goon God",
+    quote: "Big stepper-r-r-",
+    funfact: "There is nothing more relieving to a handler than hearing Michael clap his hands."
   }
 };
 
 const PLAYERS = [
+  ["Richard Lo","M",["YF"]],
   ["Brian Wong","M",["YF","PPYP","YS"]],
   ["Hannah Ma","F",["YF"]],
   ["Felicity Chu","F",["YF","PPYP"]],
   ["Natalie Hwang","F",["YF","PPYP"]],
   ["Anna Hou","F",["YF"]],
   ["Margaux Choo","F",["YF","PPYP","YS"]],
-  ["Richard Lo","M",["YF"]],
   ["Caleb Cheung","M",["YF","PPYP"]],
   ["Michael Lau","M",["YF","PPYP","YS"]],
   ["Michael Nyunt","M",["YF"]],
@@ -237,7 +248,7 @@ function renderMeta(){
         est.className = "team-est";
 
         desc.textContent =
-            "Showing every Yellow Squad player across all teams.";
+            "Showing every player across all teams.";
 
         return;
     }
