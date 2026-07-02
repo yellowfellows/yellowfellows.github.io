@@ -295,32 +295,192 @@ function renderStage(fade){
   }
 }
 
-function renderThumbs(){
-  const row = document.getElementById("thumbRow");
-  if(!row) return;
-  row.innerHTML = "";
+const thumbPositions = new Map();
+
+const THUMB_SIZE   = 56; // must match .thumb width/height in CSS
+const THUMB_GAP    = 18; // minimum breathing room between neighbouring thumbs
+const FRAME_INSET  = -50; // px the "frame" sits in from the stage-wrap edges
+
+// Rectangle (in px) that the thumbs travel around, inset from the
+// container edges so they hug the border of the stage/video underneath.
+function frameRect(containerW, containerH, inset){
+  const video = document.querySelector(".stage-video");
+  if(!video) return { rw: containerW, rh: containerH, perimeter: 0 };
+
+  const rect = video.getBoundingClientRect();
+
+  const rw = rect.width - inset * 2;
+  const rh = rect.height - inset * 2;
+
+  const perimeter = 2 * (rw + rh);
+
+  return { rw, rh, perimeter, rect };
+}
+
+// Walks clockwise from the top-left corner and returns the {x,y} point
+// (relative to the frame) that sits `dist` px along the perimeter.
+function pointOnFrame(dist, rw, rh){
+  const perimeter = 2 * (rw + rh);
+  dist = ((dist % perimeter) + perimeter) % perimeter;
+
+  if(dist <= rw)  return { x: dist, y: 0, edge: "top" };
+  dist -= rw;
+  if(dist <= rh)  return { x: rw, y: dist, edge: "right" };
+  dist -= rh;
+  if(dist <= rw)  return { x: rw - dist, y: rh, edge: "bottom" };
+  dist -= rw;
+  return { x: 0, y: rh - dist, edge: "left" };
+}
+
+// Lays every slug out along an evenly-spaced ring around the stage, with a
+// little randomised jitter so it still reads as "scattered" -- but because
+// each thumb gets its own fixed-width slot on the perimeter, jitter is
+// capped well below the slot size, which is what actually guarantees no
+// two thumbs can ever collide (rather than hoping random points miss).
+function layoutThumbs(slugs, containerW, containerH){
+  const unplaced = slugs.filter(s => !thumbPositions.has(s));
+  if(unplaced.length === 0) return;
+
+  const { rw, rh, perimeter } = frameRect(containerW, containerH, FRAME_INSET);
+  const slot = perimeter / unplaced.length;
+  const maxJitter = Math.max(0, (slot - THUMB_SIZE - THUMB_GAP) / 2);
+  const startOffset = Math.random() * perimeter;
+
+  unplaced.forEach((slug, i) => {
+    const base = startOffset + i * slot;
+    const jitter = (Math.random() * 2 - 1) * maxJitter;
+    const spot = pointOnFrame(base + jitter, rw, rh);
+
+    // small perpendicular nudge (in/out a few px) for an organic feel --
+    // this never eats into another thumb's slot since it runs sideways
+    // to the direction spacing is measured in.
+    const perp = (Math.random() * 2 - 1) * 8;
+    let px = spot.x, py = spot.y;
+    if(spot.edge === "top" || spot.edge === "bottom") py += perp;
+    else px += perp;
+
+    const video = document.querySelector(".stage-video");
+    const rect = video.getBoundingClientRect();
+
+    thumbPositions.set(slug, {
+      x: ((rect.left + FRAME_INSET + px) / window.innerWidth) * 100,
+      y: ((rect.top + FRAME_INSET + py + 100) / window.innerHeight) * 100
+    });
+  });
+}
+
+// Slug of whichever player is currently shown on the stage, given the
+// active team + that team's current index. Returns null if nothing's
+// rendered yet (e.g. an empty roster).
+function currentSlug(){
   const roster = rosterFor(activeTeam);
-  roster.forEach((p, i)=>{
-    const t = document.createElement("div");
-    const indexKey = activeTeam ?? "ALL";
-    t.className = "thumb" + (i === activeIndex[indexKey] ? " active" : "");
+  const p = roster[activeIndex[activeTeam ?? "ALL"]];
+  return p ? slugify(p.name) : null;
+}
+
+// Drives all three thumb states in one pass:
+//   dim      -- not on the active team (default .thumb styling)
+//   active   -- on the active team
+//   selected -- the exact player currently shown on stage
+// Toggling these classes is what drives the fades/pulses -- the actual
+// opacity/filter/transform/glow animation lives in the `.thumb` rules in
+// CSS, so this only works smoothly if the elements already exist in the
+// DOM (see buildThumbs / renderThumbs below).
+function updateThumbStates(){
+  const rosterNow = rosterFor(activeTeam);
+  const activeSet = new Set(rosterNow.map(p => slugify(p.name)));
+  const selected = currentSlug();
+
+  document.querySelectorAll(".thumb").forEach(el => {
+    const key = el.dataset.key;
+    el.classList.toggle("active", activeSet.has(key));
+    el.classList.toggle("selected", key === selected);
+  });
+}
+
+// Creates the thumb elements once, laid out around the stage frame, and
+// plays a staggered fade+scale entrance. Called only the first time
+// renderThumbs runs for this page load.
+function buildThumbs(row){
+  const wrap = row.closest(".stage-wrap") || row;
+  const rect = wrap.getBoundingClientRect();
+  const containerW = rect.width || 1000;
+  const containerH = rect.height || 480;
+
+  const roster = rosterFor(null); // IMPORTANT: ALL PLAYERS always, fixed order
+  const slugs = roster.map(p => slugify(p.name));
+
+  layoutThumbs(slugs, containerW, containerH);
+
+  row.innerHTML = "";
+
+  roster.forEach((p, i) => {
     const slug = slugify(p.name);
+    const pos = thumbPositions.get(slug);
+
+    const t = document.createElement("div");
+    t.className = "thumb";
+    t.dataset.key = slug;
+
+    t.style.left = pos.x + "%";
+    t.style.top = pos.y + "%";
+
+    // entrance state -- transitioned away below, riding the same
+    // opacity/transform transition used for the highlight/dim fade
+    t.style.opacity = "0";
+    t.style.transform = "scale(0.3)";
+    t.style.transitionDelay = (Math.min(i, 24) * 16) + "ms";
 
     t.innerHTML = `
       <img src="images/thumbs/${slug}.png"
-          alt="${p.name}"
-          onerror="this.style.display='none'; this.parentElement.textContent='${initials(p.name)}';">
+        alt="${p.name}"
+        onerror="this.style.display='none'; this.parentElement.textContent='${initials(p.name)}';">
     `;
 
-    t.title = p.name;
-    t.addEventListener("click", ()=>{
-      if(i === activeIndex[indexKey ?? "ALL"]) return;
-      activeIndex[indexKey ?? "ALL"] = i;
-      renderStage(true);
-      renderThumbs();
+    // click = select player
+    t.addEventListener("click", () => {
+      const rosterNow = rosterFor(activeTeam);
+      const idx = rosterNow.findIndex(pp => slugify(pp.name) === slug);
+      if(idx !== -1){
+        const key = activeTeam ?? "ALL";
+        activeIndex[key] = idx;
+        renderStage(true);
+        updateThumbStates(); // move the `selected` ring/glow to this thumb
+      }
     });
+
     row.appendChild(t);
   });
+
+  updateThumbStates();
+
+  // release the entrance state on the next frame so the transition animates
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      row.querySelectorAll(".thumb").forEach(el => {
+        el.style.opacity = "";
+        el.style.transform = "";
+      });
+      // clear the stagger once the entrance has played so later
+      // highlight/dim fades (team switches) happen in lockstep, not staggered
+      setTimeout(() => {
+        row.querySelectorAll(".thumb").forEach(el => { el.style.transitionDelay = ""; });
+      }, 700);
+    });
+  });
+}
+
+function renderThumbs(){
+  const row = document.getElementById("thumbRow");
+  if(!row) return;
+
+  if(!row.dataset.built){
+    row.dataset.built = "1";
+    buildThumbs(row);
+  } else {
+    // thumbs already exist -- just fade/pulse their active + selected state
+    updateThumbStates();
+  }
 }
 
 function step(delta){
