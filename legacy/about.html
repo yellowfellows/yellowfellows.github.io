@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — The Yellow Squad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="disc-bg" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">🥏 The Yellow Squad</a>
+    <nav class="site-nav" id="siteNav">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="wrap">
+  <header class="page-hero">
+    <div class="eyebrow">About Us</div>
+    <h1>The Story So <span class="hl">Far</span></h1>
+    <p class="sub">How three separate teams ended up sharing one color, one vibe, and about half a roster.</p>
+  </header>
+
+  <section class="block">
+    <div class="panel">
+      <h2>Why Yellow?</h2>
+      <p style="font-weight:700; line-height:1.6; opacity:0.85; margin:0;">
+        Nobody fully agrees on the origin story anymore, which is honestly on brand. What started as one team's
+        jersey order somehow spread — new teams kept forming, players kept bouncing between them, and yellow
+        just stuck. These days "the Yellow Squad" isn't one team, it's the whole ecosystem: three rosters,
+        a shared pool of players, and a color that's impossible to miss on the sideline.
+      </p>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <span class="num" id="statPlayers">–</span>
+        <span class="label">Total Players</span>
+      </div>
+      <div class="stat">
+        <span class="num" id="statTeams">–</span>
+        <span class="label">Teams</span>
+      </div>
+      <div class="stat">
+        <span class="num" id="statOverlap">–</span>
+        <span class="label">Play On 2+ Teams</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Meet the Teams</h2>
+    <div class="panel-grid">
+      <div class="panel team-card">
+        <p class="team-name">Yellow Fellows</p>
+        <p class="team-card-est empty">Est. — add a date</p>
+        <p class="desc">The original. Where it all started, back when the jerseys were the only yellow thing about this team. Expect handlers who overthink cutting lanes and a sideline louder than the score.</p>
+        <span class="team-card-count">12 players</span>
+      </div>
+      <div class="panel team-card">
+        <p class="team-name">Penno Pineapple Yellow Pen</p>
+        <p class="team-card-est empty">Est. — add a date</p>
+        <p class="desc">Somehow both the biggest roster and the hardest name to fit on a jersey. Deep bench, deeper inside jokes — ask someone about the name sometime.</p>
+        <span class="team-card-count">16 players</span>
+      </div>
+      <div class="panel team-card">
+        <p class="team-name">The Yellowship</p>
+        <p class="team-card-est empty">Est. — add a date</p>
+        <p class="desc">Small but mighty. Everyone knows everyone, and everyone's played every position at least once, usually by accident.</p>
+        <span class="team-card-count">11 players</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="panel">
+      <h2>Want to see everyone?</h2>
+      <p style="font-weight:700; opacity:0.8; margin:0 0 14px;">Head to the roster page and flip through all three teams — or hit "All" to see the full combined squad.</p>
+      <a href="index.html" class="submit-btn" style="display:inline-block; text-decoration:none;">See the Roster →</a>
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">The Yellow Squad · a lot of yellow, not a lot of consistency</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — The Yellow Squad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="disc-bg" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">🥏 The Yellow Squad</a>
+    <nav class="site-nav" id="siteNav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="wrap">
+  <header class="page-hero">
+    <div class="eyebrow">Get In Touch</div>
+    <h1>Come Say <span class="hl">Hi</span></h1>
+    <p class="sub">Questions, pickup invites, or you just want to know why the team is named after a pineapple pen — reach out.</p>
+  </header>
+
+  <section class="block">
+    <div class="contact-grid">
+
+      <div class="panel">
+        <h2>Send a Message</h2>
+        <form action="mailto:hello@yellowsquad.example" method="POST" enctype="text/plain">
+          <div class="form-field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Send it →</button>
+          <p class="form-note">This opens your email app addressed to a placeholder inbox — swap the address in contact.html for a real one.</p>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>Find Us</h2>
+        <ul class="info-list">
+          <li>
+            <span class="icon">📅</span>
+            <div>
+              <p class="label">Practice Days</p>
+              <p class="value empty">TBD — add your schedule</p>
+            </div>
+          </li>
+          <li>
+            <span class="icon">📍</span>
+            <div>
+              <p class="label">Location</p>
+              <p class="value empty">TBD — add your field/venue</p>
+            </div>
+          </li>
+          <li>
+            <span class="icon">✉️</span>
+            <div>
+              <p class="label">Email</p>
+              <p class="value empty">hello@yellowsquad.example</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="social-row">
+          <a href="#" class="social-chip">Instagram</a>
+          <a href="#" class="social-chip">GroupMe / Chat</a>
+          <a href="#" class="social-chip">Sign-Up Form</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">The Yellow Squad · new players (and better nicknames) always welcome</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>
