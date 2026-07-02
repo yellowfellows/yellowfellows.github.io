@@ -363,7 +363,7 @@ function layoutThumbs(slugs, containerW, containerH){
     const rect = video.getBoundingClientRect();
 
     thumbPositions.set(slug, {
-      x: ((rect.left + FRAME_INSET + px) / window.innerWidth) * 100,
+      x: ((rect.left + FRAME_INSET + px - 30) / window.innerWidth) * 100,
       y: ((rect.top + FRAME_INSET + py + 100) / window.innerHeight) * 100
     });
   });
@@ -434,18 +434,27 @@ function buildThumbs(row){
     t.innerHTML = `
       <img src="images/thumbs/${slug}.png"
         alt="${p.name}"
-        onerror="this.style.display='none'; this.parentElement.textContent='${initials(p.name)}';">
+        onerror="this.remove(); this.parentElement.classList.add('thumb-fallback'); this.parentElement.textContent='${initials(p.name)}';">
     `;
 
     // click = select player
     t.addEventListener("click", () => {
+
+      // Find the player in the full roster
+      const player = PLAYERS.find(pp => slugify(pp.name) === slug);
+      if (!player) return;
+
+      // If they're not in the current team, switch to one they belong to
+      if (activeTeam !== null && !player.teams.includes(activeTeam)) {
+        activeTeam = player.teams[0];      // or choose another preferred team
+      }
+
       const rosterNow = rosterFor(activeTeam);
       const idx = rosterNow.findIndex(pp => slugify(pp.name) === slug);
-      if(idx !== -1){
-        const key = activeTeam ?? "ALL";
-        activeIndex[key] = idx;
-        renderStage(true);
-        updateThumbStates(); // move the `selected` ring/glow to this thumb
+
+      if (idx !== -1) {
+        activeIndex[activeTeam ?? "ALL"] = idx;
+        renderRosterAll();     // updates tabs, stage, metadata and thumb states
       }
     });
 
