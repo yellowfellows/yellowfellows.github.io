@@ -77,6 +77,51 @@ const PLAYERS = [
   funfact: PLAYER_INFO[name]?.funfact ?? ""
 }));
 
+/* ---------- TIMELINE DATA (about.html only) ---------- */
+// To add a new milestone: push a new object here and drop the matching
+// image at images/timeline/<img>.png (e.g. img:"3" -> images/timeline/3.png).
+// No image yet? Leave it -- the card just renders without a photo.
+const TIMELINE = [
+  {
+    img: "1",
+    date: "May 2024",
+    caption: "Yellow Fellows founded",
+    description: "A reunion of Wushu Warriors and friends."
+  },
+  {
+    img: "2",
+    date: "Sep 2024",
+    caption: "The Yellowship has its first season",
+    description: "An extra night of frisbee for all the locals."
+  },
+  {
+    img: "3",
+    date: "Oct 2025",
+    caption: "Penno Pineapple Yellow Pen",
+    description: "Merger and acquisition with Pennultimate to form a brand new team."
+  }
+];
+
+function renderTimeline(){
+  const track = document.getElementById("timelineTrack");
+  if(!track) return;
+
+  track.innerHTML = TIMELINE.map((item, i) => `
+    <div class="timeline-entry" style="--i:${i}">
+      <div class="timeline-dot"></div>
+      <div class="timeline-photo">
+        <img src="images/timeline/${item.img}.png" alt="${item.caption}"
+          onerror="this.parentElement.classList.add('photo-fallback'); this.remove();">
+      </div>
+      <div class="timeline-card panel">
+        ${item.date ? `<div class="timeline-date">${item.date}</div>` : ""}
+        <h3 class="timeline-caption">${item.caption}</h3>
+        ${item.description ? `<p class="timeline-desc">${item.description}</p>` : ""}
+      </div>
+    </div>
+  `).join("");
+}
+
 const AVATAR_PALETTE = ["#FFC94A","#A8D93C","#FF8C42","#FF4FA3","#7FD8D0","#FFD9EC"];
 
 function slugify(name){
@@ -529,4 +574,5 @@ document.addEventListener("DOMContentLoaded", ()=>{
   scatterDiscs();
   setupRosterPage();
   setupAboutStats();
+  renderTimeline();
 });
