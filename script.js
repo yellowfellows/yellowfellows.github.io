@@ -103,10 +103,22 @@ const TIMELINE = [
     img: "2",
     date: "Sep 2024",
     caption: "The Yellowship has its first season",
-    description: "An extra night of frisbee for all the locals."
+    description: "An extra night of frisbee once we found out half our team lived in the area."
   },
   {
     img: "3",
+    date: "May 2025",
+    caption: "After a game at George Kendall!",
+    description: "Smile :)"
+  },
+  {
+    img: "5",
+    date: "Oct 2025",
+    caption: "Roadtrip",
+    description: "A visit to the Blue Mountains!"
+  },
+  {
+    img: "4",
     date: "Oct 2025",
     caption: "Penno Pineapple Yellow Pen",
     description: "Merger and acquisition with Pennultimate to form a brand new team."
@@ -117,20 +129,50 @@ function renderTimeline(){
   const track = document.getElementById("timelineTrack");
   if(!track) return;
 
-  track.innerHTML = TIMELINE.map((item, i) => `
-    <div class="timeline-entry" style="--i:${i}">
-      <div class="timeline-dot"></div>
+  track.innerHTML = TIMELINE.map(item => `
+    <div class="timeline-entry">
       <div class="timeline-photo">
-        <img src="images/timeline/${item.img}.png" alt="${item.caption}"
+        <img
+          src="images/timeline/${item.img}.png"
+          alt="${item.caption}"
           onerror="this.parentElement.classList.add('photo-fallback'); this.remove();">
       </div>
-      <div class="timeline-card panel">
+
+      <div class="timeline-dot"></div>
+
+      <div class="timeline-card">
         ${item.date ? `<div class="timeline-date">${item.date}</div>` : ""}
         <h3 class="timeline-caption">${item.caption}</h3>
         ${item.description ? `<p class="timeline-desc">${item.description}</p>` : ""}
       </div>
     </div>
   `).join("");
+
+  // Reveal-on-scroll animation
+  const prefersReduced =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const entries = track.querySelectorAll(".timeline-entry");
+
+  if(prefersReduced || !("IntersectionObserver" in window)){
+    entries.forEach(el => el.classList.add("in-view"));
+    return;
+  }
+
+  const io = new IntersectionObserver((observed) => {
+    observed.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add("in-view");
+        io.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.2,
+    rootMargin: "0px 0px -40px 0px"
+  });
+
+  entries.forEach(el => io.observe(el));
 }
 
 const AVATAR_PALETTE = ["#FFC94A","#A8D93C","#FF8C42","#FF4FA3","#7FD8D0","#FFD9EC"];
