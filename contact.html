@@ -15,15 +15,15 @@
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="index.html" class="brand">🥏 YELLOW FELLOWS</a>
+    <a href="index.html" class="brand" id="brandLogo" aria-label="Yellow Fellows — home. On mobile, tap to toggle the menu." aria-expanded="false">
+      <img src="images/logo.png" alt="Yellow Fellows" class="logo-img"
+        onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'logo-fallback',textContent:'🥏 YELLOW FELLOWS'}));">
+    </a>
     <nav class="site-nav" id="siteNav">
       <a href="index.html">HOME</a>
       <a href="about.html">ABOUT</a>
       <a href="contact.html" class="active">CONTACT</a>
     </nav>
-    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </header>
 

@@ -15,21 +15,21 @@
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="index.html" class="brand">🥏 YELLOW FELLOWS</a>
+    <a href="index.html" class="brand" id="brandLogo" aria-label="Yellow Fellows — home. On mobile, tap to toggle the menu." aria-expanded="false">
+      <img src="images/logo.png" alt="Yellow Fellows" class="logo-img"
+        onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'logo-fallback',textContent:'🥏 YELLOW FELLOWS'}));">
+    </a>
     <nav class="site-nav" id="siteNav">
       <a href="index.html" class="active">HOME</a>
       <a href="about.html">ABOUT</a>
       <a href="contact.html">CONTACT</a>
     </nav>
-    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </header>
 
 <div class="wrap">
   <header class="page-hero">
-    <div class="eyebrow">Social Club · Est. 2024</div>
+    <div class="eyebrow">Social Ultimate Club · Sydney, Australia</div>
     <h1>Meet the <span class="hl">teams</span></h1>
     <p class="sub">Select a team below to see the roster and learn more about our players.</p>
   </header>
@@ -52,13 +52,13 @@
     ></video>
 
     <div class="stage-scrim"></div>
-
-    <button class="stage-arrow arrow-left" aria-label="Previous player">‹</button>
-    <button class="stage-arrow arrow-right" aria-label="Next player">›</button>
     
     <div class="player-figure" id="playerFigure"></div>
 
     <div class="info-card" id="infoCard">
+
+      <button class="stage-arrow arrow-left" aria-label="Previous player">‹</button>
+      <button class="stage-arrow arrow-right" aria-label="Next player">›</button>
       <div class="badge-row" id="badgeRow"></div>
       <p class="stage-name" id="stageName"></p>
       <span class="nickname" id="stageNickname"></span>

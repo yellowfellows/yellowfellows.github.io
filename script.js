@@ -195,22 +195,41 @@ function rosterFor(team){
 
 /* ---------- NAV / HAMBURGER (all pages) ---------- */
 function setupNav(){
-  const btn = document.getElementById("hamburgerBtn");
+  const btn = document.getElementById("brandLogo");
   const nav = document.getElementById("siteNav");
   if(!btn || !nav) return;
 
-  btn.addEventListener("click", ()=>{
+  const MOBILE_BREAKPOINT = 760;
+
+  const closeNav = () => {
+    nav.classList.remove("open");
+    btn.classList.remove("active");
+    btn.setAttribute("aria-expanded", false);
+  };
+
+  btn.addEventListener("click", (e)=>{
+    // On desktop the logo is just a normal home link. On mobile it
+    // doubles as the menu toggle, so we intercept the click there.
+    if(window.innerWidth > MOBILE_BREAKPOINT) return;
+
+    e.preventDefault();
     const open = nav.classList.toggle("open");
     btn.classList.toggle("active", open);
     btn.setAttribute("aria-expanded", open);
   });
 
   nav.querySelectorAll("a").forEach(link=>{
-    link.addEventListener("click", ()=>{
-      nav.classList.remove("open");
-      btn.classList.remove("active");
-      btn.setAttribute("aria-expanded", false);
-    });
+    link.addEventListener("click", closeNav);
+  });
+
+  // Crossing the mobile breakpoint (resize/rotate) shouldn't leave a
+  // stale open dropdown or a "toggled" logo state behind.
+  let resizeTimer = null;
+  window.addEventListener("resize", ()=>{
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(()=>{
+      if(window.innerWidth > MOBILE_BREAKPOINT) closeNav();
+    }, 150);
   });
 }
 
