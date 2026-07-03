@@ -525,7 +525,7 @@ section.block:first-of-type{ margin-top: 20px; }
 
 .stage-arrow{
   position: absolute;
-  top: 30%;
+  top: 40%;
   transform: translateY(-50%);
   z-index: 3;
 
@@ -566,8 +566,8 @@ section.block:first-of-type{ margin-top: 20px; }
 .stage-arrow:focus-visible{
   outline: none;
 }
-.arrow-left{ left:0%; }
-.arrow-right{ right: 0%; }
+.arrow-left{ left: -3%; }
+.arrow-right{ right: -3%; }
 
 /* ---------- THUMBNAIL ROW ---------- */
 

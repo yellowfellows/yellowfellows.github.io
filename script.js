@@ -37,25 +37,33 @@ const PLAYER_INFO = {
     nickname: "Michael Reeves",
     quote: "Well, well, well.",
     funfact: "When he's attacking the disc, guard him hard. When he's attacking your food, guard your food.",
-    started: "2024"
+    started: "2023"
   },
 
   "Richard Lo": {
     nickname: "Gout Gout",
     quote: "Go long.",
     funfact: "His Valorant and handler callouts are exactly the same.",
-    started: "2024"
+    started: "2020"
+  },
+
+  "Dharmesh Desai": {
+    nickname: "Chief",
+    quote: "You f*** ch***r",
+    funfact: "It's a bird! It's a plane! It's a hammer from Dharmesh!",
+    started: "2021"
   },
 
   "Michael Nyunt": {
     nickname: "DDS Goon God",
     quote: "Big stepper-r-r-",
     funfact: "There is nothing more relieving to a handler than hearing Michael clap his hands.",
-    started: "2024"
+    started: "2019"
   }
 };
 
 const PLAYERS = [
+  ["Dharmesh Desai","M",["YF","PPYP"]],
   ["Richard Lo","M",["YF"]],
   ["Brian Wong","M",["YF","PPYP","YS"]],
   ["Hannah Ma","F",["YF"]],
@@ -67,7 +75,6 @@ const PLAYERS = [
   ["Michael Lau","M",["YF","PPYP","YS"]],
   ["Michael Nyunt","M",["YF"]],
   ["Andrew Chen","M",["YF","PPYP","YS"]],
-  ["Dharmesh Desai","M",["YF","PPYP"]],
   ["Angle Line","F",["PPYP","YS"]],
   ["Germaine Loke","F",["PPYP"]],
   ["Jess Zhang","F",["PPYP"]],
@@ -313,7 +320,7 @@ function renderMeta(){
         est.className = "team-est";
 
         desc.textContent =
-            "Showing every player across all teams.";
+            "See our entire roster below.";
 
         return;
     }
@@ -691,6 +698,21 @@ function setupRosterPage(){
   renderRosterAll();
 }
 
+/* ---------- CONTACT FORM (contact.html only) ---------- */
+function setupContactForm(){
+  const form = document.querySelector(".panel form");
+  const confirm = document.getElementById("formConfirm");
+  if(!form || !confirm) return;
+
+  form.addEventListener("submit", () => {
+    // mailto forms hand off to the user's mail client rather than doing a
+    // real network submit, so this is an optimistic "looks like it went
+    // through" confirmation rather than a guaranteed delivery receipt.
+    confirm.hidden = false;
+    confirm.classList.add("show");
+  });
+}
+
 /* ---------- ABOUT PAGE STATS (about.html only) ---------- */
 function setupAboutStats(){
   const statPlayers = document.getElementById("statPlayers");
@@ -707,5 +729,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
   scatterDiscs();
   setupRosterPage();
   setupAboutStats();
+  setupContactForm();
   renderTimeline();
 });
