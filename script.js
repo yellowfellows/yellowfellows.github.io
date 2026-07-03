@@ -36,19 +36,22 @@ const PLAYER_INFO = {
   "Brian Wong": {
     nickname: "Michael Reeves",
     quote: "Well, well, well.",
-    funfact: "When he's attacking the disc, guard him hard. When he's attacking your food, guard your food."
+    funfact: "When he's attacking the disc, guard him hard. When he's attacking your food, guard your food.",
+    started: "2024"
   },
 
   "Richard Lo": {
     nickname: "Gout Gout",
     quote: "Go long.",
-    funfact: "His Valorant and handler callouts are exactly the same."
+    funfact: "His Valorant and handler callouts are exactly the same.",
+    started: "2024"
   },
 
   "Michael Nyunt": {
     nickname: "DDS Goon God",
     quote: "Big stepper-r-r-",
-    funfact: "There is nothing more relieving to a handler than hearing Michael clap his hands."
+    funfact: "There is nothing more relieving to a handler than hearing Michael clap his hands.",
+    started: "2024"
   }
 };
 
@@ -85,7 +88,8 @@ const PLAYERS = [
   teams,
   nickname: PLAYER_INFO[name]?.nickname ?? "",
   quote: PLAYER_INFO[name]?.quote ?? "",
-  funfact: PLAYER_INFO[name]?.funfact ?? ""
+  funfact: PLAYER_INFO[name]?.funfact ?? "",
+  started: PLAYER_INFO[name]?.started ?? ""
 }));
 
 /* ---------- TIMELINE DATA (about.html only) ---------- */
@@ -396,6 +400,10 @@ function renderStage(fade){
     const ff = document.getElementById("stageFunfact");
     ff.textContent = p.funfact || "fun fact coming soon…";
     ff.className = "funfact" + (p.funfact ? "" : " empty");
+
+    const started = document.getElementById("stageStarted");
+    started.textContent = p.started || "year TBD";
+    started.className = "p-value" + (p.started ? "" : " empty");
 
     figure.classList.remove("fade");
     card.classList.remove("fade");
