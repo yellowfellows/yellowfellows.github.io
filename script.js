@@ -355,10 +355,31 @@ function renderStage(fade){
 // own box. No window measurements, no manual offset fudging.
 const thumbPositions = new Map();
 
-const THUMB_SIZE   = 86;              // must match .thumb width/height in CSS
-const THUMB_GAP    = 30;              // minimum breathing room between neighbouring thumbs
+const THUMB_SIZE   = 86;              // desktop default -- must match .thumb width/height in CSS
+const THUMB_GAP    = 30;              // desktop default -- minimum breathing room between neighbouring thumbs
 const FRAME_INSET  = THUMB_SIZE / 6; // negative = the travel path sits outside stage-wrap's
                                        // edges, so each thumb straddles the border half in/half out
+
+// Responsive thumb sizing -- on mobile the stage-wrap stacks into a much
+// narrower/taller box, so a fixed 86px thumb + 30px gap can't fit 26+
+// players around the perimeter without overlapping. These breakpoints
+// mirror the .thumb width/height media queries in styles.css so the JS
+// layout math and the CSS visuals always agree.
+function thumbSize(){
+  const w = window.innerWidth;
+  if(w <= 600) return 48;
+  if(w <= 760) return 62;
+  return THUMB_SIZE;
+}
+function thumbGap(){
+  const w = window.innerWidth;
+  if(w <= 600) return 10;
+  if(w <= 760) return 16;
+  return THUMB_GAP;
+}
+function frameInset(){
+  return thumbSize() / 6;
+}
 
 // Walks clockwise from the top-left corner and returns the {x,y} point
 // (relative to the frame's own top-left) that sits `dist` px along the
@@ -384,12 +405,16 @@ function layoutThumbs(slugs, containerW, containerH){
   const unplaced = slugs.filter(s => !thumbPositions.has(s));
   if(unplaced.length === 0) return;
 
-  const rw = containerW - 2 * FRAME_INSET;
-  const rh = containerH - 2 * FRAME_INSET;
+  const size = thumbSize();
+  const gap = thumbGap();
+  const inset = frameInset();
+
+  const rw = containerW - 2 * inset;
+  const rh = containerH - 2 * inset;
   const perimeter = 2 * (rw + rh);
 
   const slot = perimeter / unplaced.length;
-  const maxJitter = Math.max(0, (slot - THUMB_SIZE - THUMB_GAP) / 2);
+  const maxJitter = Math.max(0, (slot - size - gap) / 2);
   const startOffset = Math.random() * perimeter;
 
   unplaced.forEach((slug, i) => {
@@ -407,8 +432,8 @@ function layoutThumbs(slugs, containerW, containerH){
 
     // back into stage-wrap-relative coords, then to a %
     thumbPositions.set(slug, {
-      x: ((FRAME_INSET + px) / containerW) * 100,
-      y: ((FRAME_INSET + py) / containerH) * 100
+      x: ((inset + px) / containerW) * 100,
+      y: ((inset + py) / containerH) * 100
     });
   });
 }
@@ -535,6 +560,34 @@ function renderThumbs(){
     updateThumbStates();
   }
 }
+
+// Thumb size/gap/inset are viewport-dependent (see thumbSize/thumbGap/
+// frameInset above). If the window crosses one of those breakpoints --
+// e.g. rotating a phone, or resizing a desktop window past 760px -- the
+// cached positions and image sizes would fall out of sync with each
+// other, so wipe the cache and rebuild from scratch when that happens.
+function currentThumbBreakpoint(){
+  const w = window.innerWidth;
+  if(w <= 600) return "sm";
+  if(w <= 760) return "md";
+  return "lg";
+}
+let _thumbBreakpoint = currentThumbBreakpoint();
+let _thumbResizeTimer = null;
+window.addEventListener("resize", () => {
+  clearTimeout(_thumbResizeTimer);
+  _thumbResizeTimer = setTimeout(() => {
+    const bp = currentThumbBreakpoint();
+    if(bp === _thumbBreakpoint) return;
+    _thumbBreakpoint = bp;
+
+    const row = document.getElementById("thumbRow");
+    if(!row) return;
+    thumbPositions.clear();
+    row.dataset.built = "";
+    renderThumbs();
+  }, 200);
+});
 
 function step(delta){
   const roster = rosterFor(activeTeam);

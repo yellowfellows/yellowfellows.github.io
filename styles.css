@@ -194,11 +194,19 @@ section.block:first-of-type{ margin-top: 20px; }
 
 /* ---------- TABS (roster page) ---------- */
 .tabs{
-  display:flex; justify-content:center; align-items:stretch; gap:18px;
-  flex-wrap:nowrap; overflow-x:auto; margin:10px 0 10px; padding-bottom:36px; padding-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 12px;
+
+  margin: 10px 0;
+  padding: 16px 0;
 }
-.tabs::-webkit-scrollbar{ height:60px; }
-.tabs::-webkit-scrollbar-thumb{ background:var(--glass-border); border-radius:10px; }
+
+.tabs::-webkit-scrollbar{
+  display: none;              /* Chrome, Safari, Edge */
+}
 
 .tab-btn{
   flex: 0 0 auto;
@@ -279,11 +287,9 @@ section.block:first-of-type{ margin-top: 20px; }
 }
 
 .player-figure img{
-  max-width: 100%;
-  max-height: 100%;
 
   width: auto;
-  height: 100%;
+  height: 500px;
 
   object-fit: contain;
 
@@ -322,6 +328,8 @@ section.block:first-of-type{ margin-top: 20px; }
     border: 2px solid var(--sun);
 
     transform: skew(-12deg) translateX(-130px);
+
+    flex: 0 0 360px;   /* Prevent flexbox from shrinking it */
 
     box-shadow:
         6px 6px 0 var(--sun),
@@ -618,11 +626,108 @@ footer.site-footer{
   mask-image: linear-gradient(to top, #000 55%, transparent 100%);
 }
 
+/* ---------- MOBILE / STAGE RESPONSIVE ---------- */
+@media (max-width:760px){
+  .wrap{ padding-top:118px; }
+
+  /* Stage stacks: player photo on top, info card below, arrows overlaid
+     on the photo, thumbs scattered around the whole stacked block. */
+    .stage-wrap{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 520px;
+    padding: 28px 12px 32px;
+  }
+
+  .player-figure{
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+  }
+
+  .player-figure img{
+    transform: none;
+    height: 500px;
+    object-fit: contain;
+  }
+
+  @keyframes toonShadowIn{
+    0%{
+      filter:
+        drop-shadow(0 0 0 rgba(255,201,74,0))
+        drop-shadow(0 0 0 rgba(255,201,74,0));
+    }
+
+    100%{
+      filter:
+        drop-shadow(-32px 0px 0 rgba(255,201,74,0.5))
+        drop-shadow(-64px 0px 0 rgba(255,201,74,0.3));
+    }
+  }
+
+  .info-card{
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%) translateY(-20%) skew(-12deg);
+
+    width: calc(100% - 24px);
+    max-width: 360px;
+
+    z-index: 20;
+
+    box-shadow:
+      4px 4px 0 var(--sun),
+      8px 8px 0 rgba(0,0,0,0.6);
+  }
+
+  .info-card.fade{
+    opacity: 0;
+    transform: translateX(-50%) translateY(6px) skew(-6deg);
+  }
+
+  /* Arrows float over the player photo (the top ~260px of the stack)
+     instead of the old off-canvas -80px desktop position. */
+  .stage-arrow{
+    top: 158px;
+    width: 46px;
+    height: 46px;
+    font-size: 2rem;
+    background: rgba(10,10,20,0.42);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 50%;
+    opacity: 0.9;
+  }
+  .arrow-left{ left: 6px; }
+  .arrow-right{ right: 6px; }
+
+  /* Smaller thumbs so the perimeter-scatter layout (see script.js
+     thumbSize/thumbGap) still has room to breathe on a narrow stage. */
+  .thumb{ width:62px; height:62px; z-index:30}
+  .thumb.selected{z-index:30}
+
+  .team-meta{ margin-bottom:44px; }
+  .tabs{ gap:10px; }
+}
+
 @media (max-width:600px){
   .wrap{ padding-top:118px; }
-  .info-card{ max-width:none; }
-  .player-figure{ width:220px; height:220px; }
+  .player-figure{ height:220px; }
   .player-stat-row{ grid-template-columns:1fr; }
+  .thumb{ width:48px; height:48px; }
+  .stage-arrow{ top:138px; width:40px; height:40px; font-size:1.7rem; }
+}
+
+@media (max-width:420px){
+  .panel{ padding:20px 18px 18px; }
+  .info-card{ padding:10px 14px; }
+  .stat-row{ gap:10px; }
+  h1{ margin-top:8px; }
 }
 
 @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
