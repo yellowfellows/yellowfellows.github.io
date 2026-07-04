@@ -523,6 +523,24 @@ function currentSlug(){
   return p ? slugify(p.name) : null;
 }
 
+// Below 760px the thumb row gives up on the perimeter scatter (see
+// layoutThumbs) and becomes a plain horizontal, swipeable strip -- see
+// the matching ".thumb-row" rules in the 760px media query in styles.css.
+function isMobileThumbLayout(){
+  return window.innerWidth <= 760;
+}
+
+// On the mobile strip, keep the current player's thumb scrolled into
+// view instead of leaving the person to go hunt for it -- e.g. after
+// stepping with the arrows or after a team switch changes who's selected.
+function scrollSelectedIntoView(instant){
+  if(!isMobileThumbLayout()) return;
+  const row = document.getElementById("thumbRow");
+  const el = row && row.querySelector(".thumb.selected");
+  if(!el || !el.scrollIntoView) return;
+  el.scrollIntoView({ behavior: instant ? "auto" : "smooth", inline: "center", block: "nearest" });
+}
+
 // Drives all three thumb states in one pass:
 //   dim      -- not on the active team (default .thumb styling)
 //   active   -- on the active team
@@ -541,39 +559,51 @@ function updateThumbStates(){
     el.classList.toggle("active", activeSet.has(key));
     el.classList.toggle("selected", key === selected);
   });
+
+  scrollSelectedIntoView(false);
 }
 
 // Creates the thumb elements once, laid out around the stage frame, and
 // plays a staggered fade+scale entrance. Called only the first time
 // renderThumbs runs for this page load.
 function buildThumbs(row){
-  const wrap = row.closest(".stage-wrap") || row;
-  const rect = wrap.getBoundingClientRect();
-  const containerW = rect.width || 1000;
-  const containerH = rect.height || 480;
-
+  const mobile = isMobileThumbLayout();
   const roster = rosterFor(null); // IMPORTANT: ALL PLAYERS always, fixed order
-  const slugs = roster.map(p => slugify(p.name));
 
-  layoutThumbs(slugs, containerW, containerH);
+  row.classList.toggle("thumb-row-mobile", mobile);
+
+  if(!mobile){
+    const wrap = row.closest(".stage-wrap") || row;
+    const rect = wrap.getBoundingClientRect();
+    const containerW = rect.width || 1000;
+    const containerH = rect.height || 480;
+    const slugs = roster.map(p => slugify(p.name));
+    layoutThumbs(slugs, containerW, containerH);
+  }
 
   row.innerHTML = "";
 
   roster.forEach((p, i) => {
     const slug = slugify(p.name);
-    const pos = thumbPositions.get(slug);
 
     const t = document.createElement("div");
     t.className = "thumb";
     t.dataset.key = slug;
 
-    t.style.left = pos.x + "%";
-    t.style.top = pos.y + "%";
+    if(mobile){
+      // static flex item -- no perimeter coordinates needed
+      t.style.opacity = "0";
+      t.style.transform = "scale(0.5)";
+    } else {
+      const pos = thumbPositions.get(slug);
+      t.style.left = pos.x + "%";
+      t.style.top = pos.y + "%";
 
-    // entrance state -- transitioned away below, riding the same
-    // opacity/transform transition used for the highlight/dim fade
-    t.style.opacity = "0";
-    t.style.transform = "translate(-50%, -50%) scale(0.3)";
+      // entrance state -- transitioned away below, riding the same
+      // opacity/transform transition used for the highlight/dim fade
+      t.style.opacity = "0";
+      t.style.transform = "translate(-50%, -50%) scale(0.3)";
+    }
     t.style.transitionDelay = (Math.min(i, 24) * 16) + "ms";
 
     t.innerHTML = `

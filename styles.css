@@ -437,9 +437,11 @@ section.block:first-of-type{ margin-top: 20px; }
     position: absolute;
     right:12px;
     width: 360px;
-    padding: 12px 18px;
+    padding: 20px 22px 18px;
 
-    background: #fff;
+    background:
+      radial-gradient(rgba(26,26,46,0.055) 1px, transparent 1.4px) 0 0/15px 15px,
+      #fffaf1;
     border: 2px solid var(--sun);
 
     transform: skew(-12deg) translateX(-130px);
@@ -448,10 +450,20 @@ section.block:first-of-type{ margin-top: 20px; }
 
     box-shadow:
         6px 6px 0 var(--sun),
-        12px 12px 0 rgba(0,0,0,0.6);
+        12px 12px 0 rgba(0,0,0,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.8);
 
     color: #000; /* or #111 if you want softer black text */
-    
+
+    overflow: hidden;
+}
+.info-card::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:5px;
+    background: linear-gradient(90deg, var(--sun) 0%, var(--pop) 130%);
+    opacity:0.9;
 }
 .info-card > *{
     transform: skew(12deg);
@@ -459,15 +471,11 @@ section.block:first-of-type{ margin-top: 20px; }
 .info-card.fade{ opacity:0; transform: translateY(6px); }
 
 .badge-row{
-    position: absolute;
-    right: 12px;
-    bottom: 12px;
-
     display: flex;
     gap: 5px;
     flex-wrap: wrap;
     justify-content: flex-end;
-    margin: 0;
+    margin: 0 0 10px;
 }
 
 .team-chip{
@@ -479,28 +487,32 @@ section.block:first-of-type{ margin-top: 20px; }
 .chip-PPYP{ background: var(--pineapple); }
 .chip-YS{ background: var(--sherbet); }
 
-.stage-name{ font-family:var(--font-heading); font-size:clamp(1rem, 3vw, 0.35rem); font-weight:700; margin:0 0 8px; text-align:center; }
+.stage-name{ font-family:var(--font-heading); font-size:clamp(1.1rem, 2.4vw, 1.4rem); font-weight:700; margin:0 0 6px; text-align:center; letter-spacing:0.01em; }
 
 .nickname{
-  display:block; width:fit-content; margin:0 auto 12px;
-  font-family:var(--font-quote); font-style:italic; font-size:1.1rem; font-weight:700;
-  padding:4px 12px;
+  display:block; width:fit-content; margin:0 auto 14px;
+  font-family:var(--font-quote); font-style:italic; font-size:1.05rem; font-weight:700;
+  color:#8a5c00;
+  padding:0 4px 7px;
+  border-bottom:1px dashed rgba(138,92,0,0.32);
 }
-.nickname.empty{ font-style:italic; border-style:dotted; opacity:0.7; }
+.nickname.empty{ font-style:italic; border-style:dotted; opacity:0.7; color:var(--text-body); }
 
-.funfact{ font-size:0.84rem; font-weight:700; line-height:1.4; color:var(--text-body); text-align:center; margin:0 0 -2px; }
+.funfact{ font-size:0.84rem; font-weight:700; line-height:1.45; color:var(--text-body); text-align:center; margin:0 0 12px; }
 .funfact.empty{ font-style:italic; font-weight:600; opacity:0.6; }
 
 .player-stat-row{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:6px 12px;
-  border-top:1px solid var(--glass-border);
-  padding-top:8px;
+  border-top:1px solid rgba(26,26,46,0.12);
+  padding-top:10px;
 }
 
 .player-stat-row.single{
   grid-template-columns:1fr;
+  border-top:none;
+  padding-top:0;
 }
 
 .player-stat{
@@ -509,6 +521,20 @@ section.block:first-of-type{ margin-top: 20px; }
   align-items:baseline;
   gap:6px;
 }
+
+.player-stat-row.single .player-stat{
+  background: rgba(255,201,74,0.16);
+  border:1px solid rgba(255,201,74,0.4);
+  border-radius:10px;
+  padding:8px 12px;
+  justify-content:center;
+}
+
+.player-stat-row.single .p-label::before{ content:"🥏  "; }
+
+.player-stat-row.single .p-label,
+.player-stat-row.single .p-value{ color:#8a5c00; }
+.player-stat-row.single .p-value.empty{ color:var(--text-faint); }
 
 .player-stat .p-label{
   margin:0;
@@ -758,59 +784,140 @@ footer.site-footer{
 }
 
 /* ---------- MOBILE / STAGE RESPONSIVE ---------- */
+/*
+  Mobile trades the desktop "floating comic panel" for a plain stacked
+  card: a fixed-height photo zone up top (video + cutout + nav arrows),
+  then the info card in normal document flow below it, then the thumbs
+  as a horizontal swipeable strip. --photo-h is the single source of
+  truth for the photo zone's height -- the video, the cutout, and the
+  arrows' vertical centering all reference it, so they can't drift out
+  of sync with each other.
+*/
 @media (max-width:760px){
   .wrap{ padding-top:118px; }
 
-  /* Stage stacks: player photo on top, info card below, arrows overlaid
-     on the photo, thumbs scattered around the whole stacked block. */
-    .stage-wrap{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .stage-wrap{
+    --photo-h: min(56vh, 440px);
 
-    min-height: 520px;
-    padding: 28px 12px 32px;
+    display: block;
+    min-height: 0;
+    padding: 0;
+
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.14);
+    box-shadow: 0 22px 55px rgba(0,0,0,0.55);
+  }
+
+  .stage-video{
+    height: var(--photo-h);
+  }
+
+  .stage-scrim{
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: var(--photo-h);
+    background: linear-gradient(180deg, rgba(8,8,18,0) 62%, rgba(8,8,18,0.55) 100%);
+    pointer-events: none;
   }
 
   .player-figure{
-    flex: 1;
+    position: relative;
+    left: auto;
     width: 100%;
-    height: 100%;
-    min-height: 520px;
+    height: var(--photo-h);
+    min-height: 0;
   }
 
   .player-figure img{
     transform: none;
-    height: 500px;
+    height: 84%;
+    max-height: 100%;
     object-fit: contain;
   }
 
+  .ghost{ width:56%; height:70%; }
+
+  /* Arrows float over the photo, not the card -- .info-card becomes
+     position:static below (see rule further down), so these fall back
+     to .stage-wrap as their containing block and center on --photo-h. */
+  .stage-arrow{
+    top: calc(var(--photo-h) / 2);
+    transform: translateY(-50%);
+
+    width: 42px;
+    height: 42px;
+    font-size: 1.9rem;
+
+    color: #fff;
+    background: rgba(8,8,18,0.38);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.25);
+
+    z-index: 5;
+  }
+  .stage-arrow:hover{ transform: translateY(-50%) scale(1.08); }
+  .arrow-left{ left: 12px; }
+  .arrow-right{ right: 12px; }
+
+  /* Plain card in normal flow -- the skew reads great as a floating
+     accent on desktop, but fights readability at phone widths, so it's
+     dropped here in favour of a straightforward sticker-style card. */
   .info-card{
-    position: absolute;
-    left: 50%;
-    bottom: 20px;
-    transform: translateX(-50%) translateY(-20%) skew(-12deg);
+    position: static;
+    width: auto;
+    max-width: none;
+    margin: 18px 16px 0;
 
-    width: calc(100% - 24px);
-    max-width: 360px;
-
-    z-index: 20;
+    transform: none;
 
     box-shadow:
       4px 4px 0 var(--sun),
-      8px 8px 0 rgba(0,0,0,0.6);
+      8px 8px 0 rgba(0,0,0,0.55),
+      inset 0 1px 0 rgba(255,255,255,0.8);
   }
-
+  .info-card > *{ transform: none; }
   .info-card.fade{
     opacity: 0;
-    transform: translateX(-50%) translateY(6px) skew(-6deg);
+    transform: translateY(8px);
   }
 
-  /* Smaller thumbs so the perimeter-scatter layout (see script.js
-     thumbSize/thumbGap) still has room to breathe on a narrow stage. */
-  .thumb{ width:62px; height:62px; z-index:30}
-  .thumb.selected{z-index:30}
+  /* Thumbs become a horizontal, swipeable strip instead of a perimeter
+     scatter -- easier to scan and tap with a thumb than to chase dots
+     around the whole card. See script.js buildThumbs()/isMobileThumbLayout(). */
+  .thumb-row{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin: 18px 0 0;
+    padding: 6px 16px 20px;
+
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+  .thumb-row::-webkit-scrollbar{ display: none; }
+
+  .thumb-row .thumb{
+    position: static;
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+  }
+  .thumb-row .thumb,
+  .thumb-row .thumb:hover,
+  .thumb-row .thumb.active{
+    transform: none;
+  }
+  .thumb-row .thumb:hover{ opacity:0.85; }
+  .thumb-row .thumb.selected{
+    transform: translateY(-3px) scale(1.16);
+    z-index: 2;
+  }
+
+  .thumb{ width:62px; height:62px; }
 
   .team-meta{ margin-bottom:44px; }
   .tabs{ gap:10px; }
@@ -818,16 +925,15 @@ footer.site-footer{
 
 @media (max-width:600px){
   .wrap{ padding-top:118px; }
-  .player-figure{ height:220px; }
+  .stage-wrap{ --photo-h: min(48vh, 360px); }
   .player-stat-row{ grid-template-columns:1fr; }
   .thumb{ width:48px; height:48px; }
-  .stage-arrow{ top:24px; padding:50px}
+  .stage-arrow{ width:38px; height:38px; font-size:1.6rem; }
 }
 
 @media (max-width:420px){
   .panel{ padding:20px 18px 18px; }
-  .info-card{ padding:10px 14px; }
-  .stat-row{ gap:10px; }
+  .info-card{ padding:16px 16px 14px; }
   h1{ margin-top:8px; }
 }
 
