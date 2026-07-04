@@ -88,7 +88,7 @@ const PLAYER_INFO = {
 
   "Richard Lo": {
     nickname: "Gout Gout",
-    quote: "Go long.",
+    quote: "Go long!",
     funfact: "If you feel palpitations, you're either struggling to guard Richard or you're a freshly shucked pacific oyster.",
     started: "2020"
   },
