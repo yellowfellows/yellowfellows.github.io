@@ -389,6 +389,7 @@ section.block:first-of-type{ margin-top: 20px; }
 .player-figure{
   position: absolute;
   left: 32px;
+  bottom: 0px;
   flex: 1;
 
   display: flex;
