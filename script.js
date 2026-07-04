@@ -41,6 +41,14 @@ const PLAYER_INFO = {
     trophy: "Cleanest Hucks"
   },
 
+  "Angle Line": {
+    nickname: "",
+    quote: "Ooh look, a plane!",
+    funfact: "She can huck, catch, and dive - watch out! Angle is a one-(wo)man army when she's on the field. If you try to talk to her she'll find a way to bring up glow worms one way or the other.",
+    started: "2024",
+    trophy: ""
+  },
+
   "Brian Wong": {
     nickname: "Michael Reeves",
     quote: "Well, well, well.",
@@ -64,6 +72,13 @@ const PLAYER_INFO = {
     trophy: "Most Hammers Thrown"
   },
 
+  "Ethan Diu": {
+    nickname: "",
+    quote: "Bastard fricker",
+    funfact: "If you're playing man defense against Ethan, you had better be in a car that can reach at least Mach 2. If you look carefully, the black 'paint' on his shoes isn't actually paint.",
+    started: "2025",
+  },
+
   "Michael Nyunt": {
     nickname: "DDS Goon God",
     quote: "Big stepper-r-r-",
@@ -84,6 +99,8 @@ const PLAYER_INFO = {
 // "Most Hammers Thrown", "Iron Man 2025", "Comeback Player of the Year", etc.
 
 const PLAYERS = [
+  ["Ethan Diu","M",["PPYP"]],
+  ["Angle Line","F",["PPYP","YS"]],
   ["Caleb Cheung","M",["YF","PPYP"]],
   ["Andrew Chen","M",["YF","PPYP","YS"]],
   ["Michael Nyunt","M",["YF"]],
@@ -97,10 +114,8 @@ const PLAYERS = [
   ["Natalie Hwang","F",["YF","PPYP"]],
   ["Margaux Choo","F",["YF","PPYP","YS"]],
   ["Michael Lau","M",["YF","PPYP","YS"]],
-  ["Angle Line","F",["PPYP","YS"]],
   ["Jess Zhang","F",["PPYP"]],
   ["Damien Teh","M",["PPYP"]],
-  ["Ethan Diu","M",["PPYP"]],
   ["Joel Anderson","M",["PPYP"]],
   ["Julian Kok","M",["PPYP"]],
   ["Karlon Tse","M",["PPYP"]],
@@ -397,7 +412,7 @@ function scatterDiscs(){
 }
 
 /* ---------- ROSTER STAGE (index.html only) ---------- */
-let activeTeam = "YF";
+let activeTeam = null;
 const activeIndex = {
   ALL: 0,
   YF: 0,
@@ -458,7 +473,7 @@ function renderMeta(){
         est.className = "team-est";
 
         desc.textContent =
-            ".";
+            "The current lineup of all players across our rosters.";
 
         return;
     }
