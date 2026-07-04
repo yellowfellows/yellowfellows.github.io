@@ -692,23 +692,12 @@ function isMobileThumbLayout(){
 // On the mobile strip, keep the current player's thumb scrolled into
 // view instead of leaving the person to go hunt for it -- e.g. after
 // stepping with the arrows or after a team switch changes who's selected.
-// Deliberately scrolls the row itself (via scrollBy on the row element)
-// rather than calling el.scrollIntoView(), which walks every scrollable
-// ancestor -- including the page/window -- and was causing the whole
-// page to jump vertically ("snap to stage") whenever a player or team
-// was selected.
 function scrollSelectedIntoView(instant){
   if(!isMobileThumbLayout()) return;
   const row = document.getElementById("thumbRow");
   const el = row && row.querySelector(".thumb.selected");
-  if(!row || !el) return;
-
-  const rowRect = row.getBoundingClientRect();
-  const elRect = el.getBoundingClientRect();
-  const delta = (elRect.left + elRect.width / 2) - (rowRect.left + rowRect.width / 2);
-
-  if(Math.abs(delta) < 1) return;
-  row.scrollBy({ left: delta, behavior: instant ? "auto" : "smooth" });
+  if(!el || !el.scrollIntoView) return;
+  el.scrollIntoView({ behavior: instant ? "auto" : "smooth", inline: "center", block: "nearest" });
 }
 
 // Drives all three thumb states in one pass:
@@ -888,40 +877,6 @@ function setupFieldBg(){
   img.src = "images/field.png";
 }
 
-// Lets a swipe on the stage photo itself (video + player cutout) step
-// to the next/previous player, same as tapping the arrows -- handy on
-// mobile where the arrows sit off to the side rather than on the photo.
-function setupStageSwipe(){
-  const photo = document.getElementById("stagePhoto");
-  if(!photo) return;
-
-  const SWIPE_THRESHOLD = 40; // px -- minimum horizontal travel to count as a swipe
-  let startX = 0, startY = 0, tracking = false;
-
-  photo.addEventListener("touchstart", (e)=>{
-    if(e.touches.length !== 1) return;
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-    tracking = true;
-  }, { passive: true });
-
-  photo.addEventListener("touchend", (e)=>{
-    if(!tracking) return;
-    tracking = false;
-
-    const touch = e.changedTouches[0];
-    const dx = touch.clientX - startX;
-    const dy = touch.clientY - startY;
-
-    // Mostly-vertical drags are left alone so the page can still scroll.
-    if(Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) < Math.abs(dy)) return;
-
-    step(dx < 0 ? 1 : -1);
-  }, { passive: true });
-
-  photo.addEventListener("touchcancel", ()=>{ tracking = false; }, { passive: true });
-}
-
 function setupRosterPage(){
   if(!document.getElementById("stage")) return;
   document.addEventListener("click", (e)=>{
@@ -929,7 +884,6 @@ function setupRosterPage(){
     if(e.target.closest(".arrow-right")) step(1);
   });
   setupFieldBg();
-  setupStageSwipe();
   renderRosterAll();
 }
 
