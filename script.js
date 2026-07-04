@@ -33,50 +33,71 @@ const TEAMS = {
 };
 
 const PLAYER_INFO = {
+  "Andrew Chen": {
+    nickname: "T-Bone",
+    quote: "Did someone say wings?",
+    funfact: "Andrew has a hucking arm worthy of the Winter Soldier. Fortunately for his opponents, he spends most of his time on the sideline.",
+    started: "2020",
+    trophy: "Cleanest Hucks"
+  },
+
   "Brian Wong": {
     nickname: "Michael Reeves",
     quote: "Well, well, well.",
     funfact: "When he's attacking the disc, guard him hard. When he's attacking your food, guard your food.",
-    started: "2023"
+    started: "2023",
   },
 
-  "Richard Lo": {
-    nickname: "Gout Gout",
-    quote: "Go long.",
-    funfact: "His Valorant and handler callouts are exactly the same.",
-    started: "2020"
+  "Caleb Cheung": {
+    nickname: "",
+    quote: "How sad for you.",
+    funfact: "You ever see that Willem Dafoe clip where he's helplessly looking up at the sky? Anyone who's tried to mark Caleb will understand.",
+    started: "2019",
+    trophy: "Unguardable"
   },
 
   "Dharmesh Desai": {
     nickname: "Chief",
     quote: "You f*** ch***r",
-    funfact: "It's a bird! It's a plane! It's a hammer from Dharmesh!",
-    started: "2021"
+    funfact: "It's a bird! It's a plane! Just kidding, it's a hammer from Dharmesh.",
+    started: "2021",
+    trophy: "Most Hammers Thrown"
   },
 
   "Michael Nyunt": {
     nickname: "DDS Goon God",
     quote: "Big stepper-r-r-",
-    funfact: "There is nothing more relieving to a handler than hearing Michael clap his hands.",
-    started: "2019"
-  }
+    funfact: "A Wushu Warrior from a time long past, Michael has extensive experience in every role on the field.",
+    started: "2019",
+  },
+
+  "Richard Lo": {
+    nickname: "Gout Gout",
+    quote: "Go long.",
+    funfact: "If you feel palpitations, you're either struggling to guard Richard or you're a freshly shucked pacific oyster.",
+    started: "2020"
+  },
 };
+// `trophy` is entirely optional -- leave it out (like Richard Lo and
+// Dharmesh Desai above) and the ribbon on the info card just doesn't
+// render for that player. Give it whatever the club wants to call out:
+// "Most Hammers Thrown", "Iron Man 2025", "Comeback Player of the Year", etc.
 
 const PLAYERS = [
+  ["Caleb Cheung","M",["YF","PPYP"]],
+  ["Andrew Chen","M",["YF","PPYP","YS"]],
   ["Michael Nyunt","M",["YF"]],
-  ["Dharmesh Desai","M",["YF","PPYP"]],
   ["Richard Lo","M",["YF"]],
   ["Brian Wong","M",["YF","PPYP","YS"]],
+  /*
+  ["Anna Hou","F",["YF"]],
+  ["Dharmesh Desai","M",["YF","PPYP"]],
   ["Hannah Ma","F",["YF"]],
   ["Felicity Chu","F",["YF","PPYP"]],
   ["Natalie Hwang","F",["YF","PPYP"]],
-  ["Anna Hou","F",["YF"]],
   ["Margaux Choo","F",["YF","PPYP","YS"]],
-  ["Caleb Cheung","M",["YF","PPYP"]],
   ["Michael Lau","M",["YF","PPYP","YS"]],
-  ["Andrew Chen","M",["YF","PPYP","YS"]],
   ["Angle Line","F",["PPYP","YS"]],
-  ["Germaine Loke","F",["PPYP"]],
   ["Jess Zhang","F",["PPYP"]],
   ["Damien Teh","M",["PPYP"]],
   ["Ethan Diu","M",["PPYP"]],
@@ -89,6 +110,7 @@ const PLAYERS = [
   ["Wilson Kwong","M",["YS"]],
   ["Tyrone Lau","M",["YS"]],
   ["Rex Mercado","M",["YS"]]
+  */
 ].map(([name, gender, teams]) => ({
   name,
   gender,
@@ -96,7 +118,8 @@ const PLAYERS = [
   nickname: PLAYER_INFO[name]?.nickname ?? "",
   quote: PLAYER_INFO[name]?.quote ?? "",
   funfact: PLAYER_INFO[name]?.funfact ?? "",
-  started: PLAYER_INFO[name]?.started ?? ""
+  started: PLAYER_INFO[name]?.started ?? "",
+  trophy: PLAYER_INFO[name]?.trophy ?? ""
 }));
 
 /* ---------- TIMELINE DATA (about.html only) ---------- */
@@ -105,35 +128,83 @@ const PLAYERS = [
 // No image yet? Leave it -- the card just renders without a photo.
 const TIMELINE = [
   {
+    img: "15",
+    date: "Apr 2020",
+    caption: "The first season of Wushu Warriors",
+    description: "The very first time we played together."
+  },
+  {
     img: "1",
     date: "May 2024",
-    caption: "Yellow Fellows founded",
+    caption: "The first season of Yellow Fellows",
     description: "A reunion of Wushu Warriors and friends."
   },
   {
-    img: "2",
+    img: "13",
+    date: "Jul 2024",
+    caption: "",
+    description: "After a weeknight training session at West Epping."
+  },
+  {
+    img: "11",
     date: "Sep 2024",
-    caption: "The Yellowship has its first season",
-    description: "An extra night of frisbee once we found out half our team lived in the area."
+    caption: "The first season of The Yellowship",
+    description: "After a night out at Nakano."
+  },
+  {
+    img: "12",
+    date: "Sep 2024",
+    caption: "NSU Winter 2025 complete",
+    description: "Yellow Fellows wins spirit!"
+  },
+  {
+    img: "9",
+    date: "Feb 2025",
+    caption: "Hills Summer 2025 complete",
+    description: ""
+  },
+  {
+    img: "8",
+    date: "Mar 2025",
+    caption: "NSU Summer 2025 complete",
+    description: "Another season finished!"
   },
   {
     img: "3",
     date: "May 2025",
-    caption: "After a game at George Kendall!",
-    description: "Smile :)"
+    caption: "NSU Winter 2025 begins",
+    description: "Joined by Natalie and Felicity."
+  },
+  {
+    img: "7",
+    date: "Jun 2025",
+    caption: "Abdallah moves to Melbourne",
+    description: "Team dinner together at 678 Eastwood."
+  },
+  {
+    img: "2",
+    date: "Aug 2025",
+    caption: "Hills Winter 2025 complete",
+    description: ""
   },
   {
     img: "5",
     date: "Oct 2025",
-    caption: "Roadtrip",
-    description: "A visit to the Blue Mountains!"
+    caption: "Blue Mountains Roadtrip",
+    description: "Taken at Lincoln's Rock over the long weekend."
   },
   {
     img: "4",
     date: "Oct 2025",
-    caption: "Penno Pineapple Yellow Pen",
-    description: "Merger and acquisition with Pennultimate to form a brand new team."
-  }
+    caption: "The first season of Penno Pineapple Yellow Pen",
+    description: "Having dinner together after our first game."
+  },
+  {
+    img: "10",
+    date: "Mar 2026",
+    caption: "Hills Summer 2026 complete",
+    description: ""
+  },
 ];
 
 function renderTimeline(){
@@ -320,7 +391,7 @@ function renderMeta(){
         est.className = "team-est";
 
         desc.textContent =
-            "See our entire roster below.";
+            ".";
 
         return;
     }
@@ -398,14 +469,20 @@ function renderStage(fade){
       .map(t => `<span class="team-chip chip-${t}" title="${TEAMS[t].name}">${t}</span>`)
       .join("");
 
+    // Trophy tag is fully optional -- see PLAYER_INFO.trophy. No trophy
+    // for this player means the ribbon just stays hidden.
+    const trophyTag = document.getElementById("trophyTag");
+    document.getElementById("trophyText").textContent = p.trophy || "";
+    trophyTag.style.display = p.trophy ? "flex" : "none";
+
     document.getElementById("stageName").textContent = displayName(p);
 
     const nick = document.getElementById("stageNickname");
-    nick.textContent = p.quote ? `“${p.quote}”` : "Quote coming soon…";
+    nick.textContent = p.quote ? `“${p.quote}”` : "";
     nick.className = "nickname" + (p.quote ? "" : " empty");
 
     const ff = document.getElementById("stageFunfact");
-    ff.textContent = p.funfact || "fun fact coming soon…";
+    ff.textContent = p.funfact || "";
     ff.className = "funfact" + (p.funfact ? "" : " empty");
 
     const started = document.getElementById("stageStarted");
