@@ -213,15 +213,16 @@ const TIMELINE = [
 // e.g. "Anna Hou" -> images/exthumbs/anna-hou.png). No image yet? The
 // thumb just falls back to a plain initials chip, same as the roster.
 const EXTHUMBS = [
-  "Rachel Venhuizen",
-  "Tina Du",
-  "Cecilia Luo",
   "Abdallah Harun",
-  "Denise Xu",
-  "Chantal Kos",
-  "Rafat Ahmed",
-  "Kevin Li",
   "Alexandra Kim",
+  "Cecilia Luo",
+  "Chantal Kos",
+  "Denise Xu",
+  "Kevin Li",
+  "Rachel Venhuizen",
+  "Rafat Ahmed",
+  "Sonia Ho",
+  "Tina Du",
 ];
 
 function renderExthumbs(){
@@ -238,6 +239,39 @@ function renderExthumbs(){
       </div>
     `;
   }).join("");
+}
+
+// Wires the left/right chevrons that flank the past-players strip to
+// scroll it, and keeps them disabled (faded out, same as .stage-arrow's
+// hover fade) once you've hit either end so they don't imply there's
+// more to see when there isn't.
+function setupExthumbArrows(){
+  const wrap = document.querySelector(".exthumbs-row-wrap");
+  const row = document.getElementById("exthumbsRow");
+  if(!wrap || !row) return;
+
+  const leftBtn = wrap.querySelector(".exthumb-arrow-left");
+  const rightBtn = wrap.querySelector(".exthumb-arrow-right");
+  if(!leftBtn || !rightBtn) return;
+
+  const step = () => Math.max(row.clientWidth * 0.7, 160);
+
+  leftBtn.addEventListener("click", () => {
+    row.scrollBy({ left: -step(), behavior: "smooth" });
+  });
+  rightBtn.addEventListener("click", () => {
+    row.scrollBy({ left: step(), behavior: "smooth" });
+  });
+
+  const updateArrowState = () => {
+    const maxScroll = row.scrollWidth - row.clientWidth;
+    leftBtn.disabled = row.scrollLeft <= 4;
+    rightBtn.disabled = maxScroll <= 4 || row.scrollLeft >= maxScroll - 4;
+  };
+
+  row.addEventListener("scroll", updateArrowState);
+  window.addEventListener("resize", updateArrowState);
+  updateArrowState();
 }
 
 function renderTimeline(){
@@ -872,4 +906,5 @@ document.addEventListener("DOMContentLoaded", ()=>{
   setupContactForm();
   renderTimeline();
   renderExthumbs();
+  setupExthumbArrows();
 });

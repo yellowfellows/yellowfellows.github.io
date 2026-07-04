@@ -1108,6 +1108,7 @@ footer.site-footer{
 
 /* ---------- PAST PLAYERS / EXTHUMBS (about.html only) ---------- */
 .exthumbs-row-wrap{
+  position:relative;
   margin:0 0 48px;
   padding-bottom:44px;
   border-bottom:1px solid rgba(255,255,255,.14);
@@ -1119,9 +1120,27 @@ footer.site-footer{
   gap:20px;
 
   /* generous top padding gives the hover tooltip + glow room to render
-     without getting clipped by the scroll container's overflow box */
-  padding:56px 4px 16px;
-  margin:-50px -4px 0;
+     without getting clipped by the scroll container's overflow box.
+     The same trick is mirrored left/right below -- overflow-x:auto clips
+     the tooltip horizontally too, and the first/last thumbs have no
+     neighbouring content on one side for the bubble to spill into, so
+     without this buffer their tooltip gets flush-cropped at the scroll
+     edge. The matching negative margin keeps the visible thumb positions
+     unchanged; the extra padding just reserves clipping room. */
+  padding:56px 48px 16px;
+  margin:-50px -48px 0;
+  /* scroll-snap aligns targets against the scrollport's padding-box edge,
+     which -- thanks to the padding above -- sits 48px outside where the
+     first/last thumb actually starts. Without telling snap to account for
+     that offset, "start" alignment for item 1 only resolves at
+     scrollLeft:48px, not scrollLeft:0 -- so a swipe back to the beginning
+     overshoots that (nonexistent, from the browser's perspective) rest
+     point and snaps to item 2 instead, leaving item 1 stranded off in the
+     padding buffer, past the left edge of what's visible. Matching
+     scroll-padding here shifts the snap reference inward so scrollLeft:0
+     is itself a valid, correctly-aligned snap point for item 1. */
+  scroll-padding-left:48px;
+  scroll-padding-right:48px;
 
   overflow-x:auto;
   overscroll-behavior-x:contain;
@@ -1223,8 +1242,68 @@ footer.site-footer{
   box-shadow: 0 6px 16px rgba(6,6,16,0.35);
 }
 
+/* Scroll arrows -- same shape/motion language as .stage-arrow on the
+   roster stage (ghost circle, thin oversized chevron, fade in on hover),
+   just recoloured for this section's dark card instead of the stage's
+   light photo backdrop. */
+.exthumb-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:4;
+
+  width:44px;
+  height:44px;
+  border:none;
+  border-radius:50%;
+
+  background:transparent;
+  color:var(--text);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  cursor:pointer;
+  user-select:none;
+
+  font-family:system-ui, sans-serif;
+  font-size:2.6rem;
+  font-weight:300;
+  line-height:1;
+
+  transition:
+    transform .2s ease,
+    color .2s ease,
+    opacity .2s ease;
+
+  opacity:.55;
+}
+
+.exthumb-arrow:hover{
+  transform:translateY(-50%) scale(1.12);
+  color:var(--sun);
+  opacity:1;
+}
+
+.exthumb-arrow:focus-visible{ outline:none; }
+
+.exthumb-arrow[disabled]{
+  opacity:0;
+  pointer-events:none;
+}
+
+.exthumb-arrow-left{ left:-6px; }
+.exthumb-arrow-right{ right:-6px; }
+
 @media (max-width:600px){
   .exthumb{ width:58px; height:58px; }
+
+  .exthumb-arrow{
+    width:36px;
+    height:36px;
+    font-size:2.1rem;
+  }
 }
 
 /* =========================================================
