@@ -842,20 +842,39 @@ footer.site-footer{
     min-height: 0;
     padding: 0;
 
+    /* Rounding/clipping now lives on .stage-photo (below) instead of
+       here -- .stage-wrap itself stays overflow:visible so the arrows,
+       which sit outside .stage-photo, can spill into the page's own
+       side padding instead of getting clipped off. */
+    border: none;
+    box-shadow: none;
+  }
+
+  /* Wraps just the video/scrim/cutout -- this is the element that gets
+     the rounded-photo treatment previously applied to .stage-wrap. */
+  .stage-photo{
+    position: relative;
+    width: 100%;
+    height: var(--photo-h);
+
     border-radius: 22px;
     overflow: hidden;
     border: 1px solid rgba(255,255,255,0.14);
     box-shadow: 0 22px 55px rgba(0,0,0,0.55);
+
+    touch-action: pan-y; /* let vertical page scroll through, we handle horizontal swipes ourselves */
   }
 
   .stage-video{
-    height: var(--photo-h);
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
   }
 
   .stage-scrim{
     position: absolute;
-    top: 0; left: 0; right: 0;
-    height: var(--photo-h);
+    inset: 0;
     background: linear-gradient(180deg, rgba(8,8,18,0) 62%, rgba(8,8,18,0.55) 100%);
     pointer-events: none;
   }
@@ -864,7 +883,7 @@ footer.site-footer{
     position: relative;
     left: auto;
     width: 100%;
-    height: var(--photo-h);
+    height: 100%;
     min-height: 0;
   }
 
@@ -878,9 +897,14 @@ footer.site-footer{
   .ghost{ width:56%; height:70%; }
 
   /* Arrows are still positioned relative to .info-card (their DOM
-     parent), but pulled up with a negative offset so they land over
-     the photo instead of over the card -- the card's own top margin
-     (18px, see .info-card below) plus half the photo height. */
+     parent), but pulled up with a negative offset so they land at
+     photo height -- the card's own top margin (18px, see .info-card
+     below) plus half the photo height. Horizontally they're pushed
+     into the page's own side padding (the gutter already sitting
+     outside .stage-wrap) rather than crammed on top of the photo --
+     .info-card sits 16px in from .stage-wrap's edge, so -48px here
+     clears that plus the arrow's own width, landing it just outside
+     .stage-wrap in the existing blank margin. */
   .stage-arrow{
     top: calc(-1 * (var(--photo-h) / 2) - 18px);
     transform: translateY(-50%);
@@ -894,8 +918,8 @@ footer.site-footer{
     z-index: 5;
   }
   .stage-arrow:hover{ transform: translateY(-10%) scale(1.28); color: #fff}
-  .arrow-left{ left: 12px; }
-  .arrow-right{ right: 12px; }
+  .arrow-left{ left: -48px; }
+  .arrow-right{ right: -48px; }
 
   /* Plain card in normal flow -- the skew reads great as a floating
      accent on desktop, but fights readability at phone widths, so it's
