@@ -207,6 +207,39 @@ const TIMELINE = [
   },
 ];
 
+/* ---------- PAST PLAYERS / EXTHUMBS (about.html only) ---------- */
+// To add a past player: add their name below and drop a matching cutout
+// at images/exthumbs/<slug>.png (same slugify rule as the roster thumbs,
+// e.g. "Anna Hou" -> images/exthumbs/anna-hou.png). No image yet? The
+// thumb just falls back to a plain initials chip, same as the roster.
+const EXTHUMBS = [
+  "Rachel Venhuizen",
+  "Tina Du",
+  "Cecilia Luo",
+  "Abdallah Harun",
+  "Denise Xu",
+  "Chantal Kos",
+  "Rafat Ahmed",
+  "Kevin Li",
+  "Alexandra Kim",
+];
+
+function renderExthumbs(){
+  const row = document.getElementById("exthumbsRow");
+  if(!row) return;
+
+  row.innerHTML = EXTHUMBS.map(name => {
+    const slug = slugify(name);
+    return `
+      <div class="exthumb" data-key="${slug}" tabindex="0">
+        <img src="images/exthumbs/${slug}.png" alt="${name}"
+          onerror="this.remove(); this.parentElement.classList.add('exthumb-fallback'); this.parentElement.textContent='${initials(name)}';">
+        <span class="exthumb-tip">${name}</span>
+      </div>
+    `;
+  }).join("");
+}
+
 function renderTimeline(){
   const track = document.getElementById("timelineTrack");
   if(!track) return;
@@ -838,4 +871,5 @@ document.addEventListener("DOMContentLoaded", ()=>{
   setupAboutStats();
   setupContactForm();
   renderTimeline();
+  renderExthumbs();
 });

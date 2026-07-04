@@ -1106,6 +1106,127 @@ footer.site-footer{
   .timeline-photo.photo-fallback + .timeline-card{ grid-column:1; }
 }
 
+/* ---------- PAST PLAYERS / EXTHUMBS (about.html only) ---------- */
+.exthumbs-row-wrap{
+  margin:0 0 48px;
+  padding-bottom:44px;
+  border-bottom:1px solid rgba(255,255,255,.14);
+}
+
+.exthumbs-row{
+  display:flex;
+  flex-wrap:nowrap;
+  gap:20px;
+
+  /* generous top padding gives the hover tooltip + glow room to render
+     without getting clipped by the scroll container's overflow box */
+  padding:56px 4px 16px;
+  margin:-50px -4px 0;
+
+  overflow-x:auto;
+  overscroll-behavior-x:contain;
+  scroll-snap-type:x proximity;
+  -webkit-overflow-scrolling:touch;
+}
+.exthumbs-row::-webkit-scrollbar{ display:none; }
+
+.exthumb{
+  position:relative;
+  flex:0 0 auto;
+
+  width:72px;
+  height:72px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  cursor:default;
+  scroll-snap-align:start;
+
+  opacity:0.55;
+  transition: transform .3s cubic-bezier(.2,.8,.3,1), opacity .3s ease;
+}
+
+.exthumb:hover,
+.exthumb:focus-visible{
+  opacity:1;
+  transform: translateY(-5px) scale(1.1);
+  outline:none;
+}
+
+.exthumb img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter: grayscale(0.6) brightness(0.8) drop-shadow(0 2px 5px rgba(0,0,0,0.4));
+  transition: filter .3s ease;
+}
+
+.exthumb:hover img,
+.exthumb:focus-visible img{
+  filter:
+    grayscale(0) brightness(1)
+    drop-shadow(0 2px 5px rgba(0,0,0,0.4))
+    drop-shadow(0 0 9px rgba(255,201,74,0.4));
+}
+
+/* Name tooltip -- revealed on hover/focus, sitting above the thumb like
+   a little speech-bubble callout. */
+.exthumb-tip{
+  position:absolute;
+  bottom:calc(100% + 12px);
+  left:50%;
+  transform:translateX(-50%) translateY(4px);
+  white-space:nowrap;
+  z-index:3;
+
+  font-family:var(--font-mono);
+  font-size:0.62rem;
+  font-weight:700;
+  letter-spacing:0.03em;
+
+  background: rgba(18,20,28,0.94);
+  color:var(--text);
+  border:1px solid var(--glass-border);
+  border-radius:8px;
+  padding:5px 10px;
+
+  opacity:0;
+  pointer-events:none;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.exthumb-tip::after{
+  content:"";
+  position:absolute;
+  top:100%; left:50%;
+  transform:translateX(-50%);
+  border:5px solid transparent;
+  border-top-color:rgba(18,20,28,0.94);
+}
+
+.exthumb:hover .exthumb-tip,
+.exthumb:focus-visible .exthumb-tip{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* fallback chip -- mirrors .thumb-fallback for players with no
+   images/exthumbs/<slug>.png yet */
+.exthumb-fallback{
+  border-radius:50%;
+  background: var(--sun);
+  color: var(--ink);
+  font-family:var(--font-mono);
+  font-size:0.62rem;
+  font-weight:700;
+  box-shadow: 0 6px 16px rgba(6,6,16,0.35);
+}
+
+@media (max-width:600px){
+  .exthumb{ width:58px; height:58px; }
+}
+
 /* =========================================================
    ABOUT - Values Section
    ========================================================= */
