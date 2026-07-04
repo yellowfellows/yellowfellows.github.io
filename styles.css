@@ -388,7 +388,7 @@ section.block:first-of-type{ margin-top: 20px; }
 
 .player-figure{
   position: absolute;
-  left: -42px;
+  left: 32px;
   flex: 1;
 
   display: flex;
@@ -458,7 +458,18 @@ section.block:first-of-type{ margin-top: 20px; }
 }
 .info-card.fade{ opacity:0; transform: translateY(6px); }
 
-.badge-row{ display:flex; gap:5px; margin-bottom:10px; flex-wrap:wrap; justify-content:center; }
+.badge-row{
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin: 0;
+}
+
 .team-chip{
   font-family:var(--font-mono); font-size:0.6rem; font-weight:700;
   padding:3px 8px; border-radius:999px; border:1px solid rgba(26,26,46,0.25); line-height:1.6;
@@ -468,7 +479,7 @@ section.block:first-of-type{ margin-top: 20px; }
 .chip-PPYP{ background: var(--pineapple); }
 .chip-YS{ background: var(--sherbet); }
 
-.stage-name{ font-family:var(--font-heading); font-size:clamp(1rem, 3vw, 1.35rem); margin:0 0 8px; text-align:center; }
+.stage-name{ font-family:var(--font-heading); font-size:clamp(1rem, 3vw, 0.35rem); font-weight:700; margin:0 0 8px; text-align:center; }
 
 .nickname{
   display:block; width:fit-content; margin:0 auto 12px;
@@ -494,7 +505,7 @@ section.block:first-of-type{ margin-top: 20px; }
 
 .player-stat{
   display:flex;
-  justify-content:center;
+  justify-content:flex-start;
   align-items:baseline;
   gap:6px;
 }
@@ -525,7 +536,7 @@ section.block:first-of-type{ margin-top: 20px; }
 
 .stage-arrow{
   position: absolute;
-  top: 40%;
+  top: 30%;
   transform: translateY(-50%);
   z-index: 3;
 

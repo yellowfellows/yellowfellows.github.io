@@ -63,6 +63,7 @@ const PLAYER_INFO = {
 };
 
 const PLAYERS = [
+  ["Michael Nyunt","M",["YF"]],
   ["Dharmesh Desai","M",["YF","PPYP"]],
   ["Richard Lo","M",["YF"]],
   ["Brian Wong","M",["YF","PPYP","YS"]],
@@ -73,7 +74,6 @@ const PLAYERS = [
   ["Margaux Choo","F",["YF","PPYP","YS"]],
   ["Caleb Cheung","M",["YF","PPYP"]],
   ["Michael Lau","M",["YF","PPYP","YS"]],
-  ["Michael Nyunt","M",["YF"]],
   ["Andrew Chen","M",["YF","PPYP","YS"]],
   ["Angle Line","F",["PPYP","YS"]],
   ["Germaine Loke","F",["PPYP"]],
