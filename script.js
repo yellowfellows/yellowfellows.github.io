@@ -130,62 +130,62 @@ const TIMELINE = [
   {
     img: "15",
     date: "Apr 2020",
-    caption: "The first season of Wushu Warriors",
+    caption: "Wushu Warriors is formed",
     description: "The very first time we played together."
   },
   {
     img: "1",
     date: "May 2024",
-    caption: "The first season of Yellow Fellows",
+    caption: "Yellow Fellows is formed",
     description: "A reunion of Wushu Warriors and friends."
   },
   {
     img: "13",
     date: "Jul 2024",
-    caption: "",
-    description: "After a weeknight training session at West Epping."
+    caption: "Yellow Fellows trains together",
+    description: "After a weeknight session at West Epping."
   },
   {
     img: "11",
     date: "Sep 2024",
-    caption: "The first season of The Yellowship",
+    caption: "The Yellowship is formed",
     description: "After a night out at Nakano."
   },
   {
     img: "12",
     date: "Sep 2024",
-    caption: "NSU Winter 2025 complete",
-    description: "Yellow Fellows wins spirit!"
+    caption: "Yellow Fellows - NSU Winter 2025",
+    description: "Taken at the finals."
   },
   {
     img: "9",
     date: "Feb 2025",
-    caption: "Hills Summer 2025 complete",
-    description: ""
+    caption: "The Yellowship - Hills Summer 2025",
+    description: "The last week of the season."
   },
   {
     img: "8",
     date: "Mar 2025",
-    caption: "NSU Summer 2025 complete",
-    description: "Another season finished!"
+    caption: "Yellow Fellows - NSU Summer 2025",
+    description: "Group photo at North Ryde Park."
   },
   {
     img: "3",
     date: "May 2025",
-    caption: "NSU Winter 2025 begins",
+    caption: "Yellow Fellows - NSU Winter 2025",
     description: "Joined by Natalie and Felicity."
   },
   {
     img: "7",
     date: "Jun 2025",
     caption: "Abdallah moves to Melbourne",
-    description: "Team dinner together at 678 Eastwood."
+    description: "Group photo at 678 Eastwood."
   },
   {
     img: "2",
     date: "Aug 2025",
-    caption: "Hills Winter 2025 complete",
-    description: ""
+    caption: "The Yellowship - Hills Winter 2025",
+    description: "The last week of the season."
   },
   {
     img: "5",
@@ -196,14 +196,14 @@ const TIMELINE = [
   {
     img: "4",
     date: "Oct 2025",
-    caption: "The first season of Penno Pineapple Yellow Pen",
+    caption: "Penno Pineapple Yellow Pen is formed",
     description: "Having dinner together after our first game."
   },
   {
     img: "10",
     date: "Mar 2026",
-    caption: "Hills Summer 2026 complete",
-    description: ""
+    caption: "The Yellowship - Hills Summer 2026",
+    description: "The last week of the season."
   },
 ];
 
