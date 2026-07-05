@@ -76,7 +76,7 @@ a{ color:inherit; }
 .disc-bg{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:-2; }
 .disc-bg span{ position:absolute; font-size:2.2rem; opacity:0.07; filter:saturate(0.6); }
 
-.wrap{ position:relative; z-index:5; max-width:1100px; margin:0 auto; padding:64px 64px 10px; }
+.wrap{ position:relative; z-index:5; max-width:1100px; margin:0 auto; padding:64px 64px 10px; min-width:480px;}
 
 /* ---------- SITE HEADER / NAV -- fades into the photo ---------- */
 .site-header{
@@ -407,7 +407,7 @@ section.block:first-of-type{ margin-top: 20px; }
 
 .player-figure{
   position: absolute;
-  left: 32px;
+  left: -12px;
   bottom: 0px;
   flex: 1;
 
@@ -455,7 +455,7 @@ section.block:first-of-type{ margin-top: 20px; }
 
 .info-card{
     position: absolute;
-    right:12px;
+    right:-24px;
     width: 360px;
     padding: 20px 22px 18px;
 
@@ -546,7 +546,7 @@ section.block:first-of-type{ margin-top: 20px; }
 .chip-PPYP{ background: var(--pineapple); }
 .chip-YS{ background: var(--sherbet); }
 
-.stage-name{ font-family:var(--font-heading); font-size:clamp(1.1rem, 2.4vw, 1.4rem); font-weight:700; margin:0 0 6px; text-align:center; letter-spacing:0.01em; }
+.stage-name{ font-family:var(--font-heading); font-size:clamp(1.1rem, 2.4vw, 1.4rem); font-weight:700; margin:0 32px 6px; text-align:center; letter-spacing:0.01em; }
 
 .nickname{
   display:block; width:fit-content; margin:0 auto 14px;
@@ -621,7 +621,7 @@ section.block:first-of-type{ margin-top: 20px; }
 
 .stage-arrow{
   position: absolute;
-  top: 30%;
+  top: 25%;
   transform: translateY(-50%);
   z-index: 3;
 
@@ -662,8 +662,8 @@ section.block:first-of-type{ margin-top: 20px; }
 .stage-arrow:focus-visible{
   outline: none;
 }
-.arrow-left{ left: -3%; }
-.arrow-right{ right: -3%; }
+.arrow-left{ left: 3%; }
+.arrow-right{ right: 3%; }
 
 /* ---------- THUMBNAIL ROW ---------- */
 
@@ -862,7 +862,7 @@ footer.site-footer{
   .stage-photo-inner (holding the video/scrim/cutout) clips, to round
   off the video's square corners.
 */
-@media (max-width:760px){
+@media (max-width:900px){
   .wrap{ padding-top:118px; }
 
   .stage-wrap{
@@ -919,19 +919,8 @@ footer.site-footer{
      parent), but pulled up with a negative offset so they land over
      the photo instead of over the card -- the card's own top margin
      (18px, see .info-card below) plus half the photo height. */
-  .stage-arrow{
-    top: calc(-1 * (var(--photo-h) / 2) - 18px);
-    transform: translateY(-50%);
-
-    width: 42px;
-    height: 42px;
-    font-size: 3.9rem;
-
-    color: #fff;
-
-    z-index: 5;
-  }
-  .stage-arrow:hover{ transform: translateY(-10%) scale(1.28); color: #fff}
+  .stage-arrow{top: 20%;}
+  .stage-arrow:hover{ transform: translateY(-10%) scale(1.28);}
   .arrow-left{ left: 12px; }
   .arrow-right{ right: 12px; }
 
@@ -944,7 +933,7 @@ footer.site-footer{
     position: relative;
     width: 98%;
     max-width: none;
-    margin: 18px 16px 0;
+    margin: 18px -16px 0;
 
     transform: none;
 
