@@ -16,13 +16,13 @@ const TEAMS = {
     name: "Yellow Fellows",
     accent: "#FFC94A",
     estDate: "May 2024",
-    description: "Our core team, currently playing Monday nights at NSU."
+    description: "Our first team, Yellow Fellows, has since expanded into multiple teams. We currently play Monday nights at NSU."
   },
   YS: {
     name: "The Yellowship",
     accent: "#ffbf1f",
     estDate: "Sep 2024",
-    description: "Our Wednesday Hills fun & frothers team."
+    description: "Our Wednesday Hills fun & frothers team, formed by players itchy for another night of ultimate."
   },
   PPYP: {
     name: "Penno Pineapple Yellow Pen",
@@ -33,12 +33,13 @@ const TEAMS = {
 };
 
 const PLAYER_INFO = {
+
   "Andrew Chen": {
     nickname: "T-Bone",
     quote: "Did someone say wings?",
     funfact: "Andrew has a hucking arm worthy of the Winter Soldier. Fortunately for his opponents, he spends most of his time on the sideline.",
     started: "2020",
-    trophy: "Cleanest Hucks"
+    trophy: "Hucking Machine"
   },
 
   "Angle Line": {
@@ -47,6 +48,13 @@ const PLAYER_INFO = {
     funfact: "She can huck, catch, and dive - watch out! Angle is a one-(wo)man army when she's on the field. If you try to talk to her she'll find a way to bring up glow worms one way or the other.",
     started: "2024",
     trophy: ""
+  },
+
+  "Anna Hou": {
+    nickname: "Bananna",
+    quote: "Where are we playing tonight?",
+    funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    started: "2023",
   },
 
   "Brian Wong": {
@@ -69,7 +77,7 @@ const PLAYER_INFO = {
     quote: "You f*** ch***r",
     funfact: "It's a bird! It's a plane! Just kidding, it's a hammer from Dharmesh.",
     started: "2021",
-    trophy: "Most Hammers Thrown"
+    trophy: "God of Hammers"
   },
 
   "Ethan Diu": {
@@ -79,11 +87,46 @@ const PLAYER_INFO = {
     started: "2025",
   },
 
+  "Hannah Ma": {
+    nickname: "",
+    quote: "I'm so early!",
+    funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    started: "2021",
+  },
+
+  "Felicity Chu": {
+    nickname: "Science",
+    quote: "Okay.",
+    funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    started: "2025",
+  },
+
+  "Margaux Choo": {
+    nickname: "Maggot",
+    quote: "Do you feel in charge?",
+    funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    started: "2023",
+  },
+
+  "Michael Lau": {
+    nickname: "Mikael Wowzy",
+    quote: "SWING THE DISC",
+    funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    started: "2019",
+  },
+
   "Michael Nyunt": {
     nickname: "DDS Goon God",
     quote: "Big stepper-r-r-",
     funfact: "A Wushu Warrior from a time long past, Michael has extensive experience in every role on the field.",
     started: "2019",
+  },
+
+  "Natalie Hwang": {
+    nickname: "",
+    quote: "Hang me from the cutting tree",
+    funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    started: "2025",
   },
 
   "Richard Lo": {
@@ -92,11 +135,15 @@ const PLAYER_INFO = {
     funfact: "If you feel palpitations, you're either struggling to guard Richard or you're a freshly shucked pacific oyster.",
     started: "2020"
   },
+
+  "x": {
+    nickname: "",
+    quote: "?",
+    funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    started: "",
+  },
 };
-// `trophy` is entirely optional -- leave it out (like Richard Lo and
-// Dharmesh Desai above) and the ribbon on the info card just doesn't
-// render for that player. Give it whatever the club wants to call out:
-// "Most Hammers Thrown", "Iron Man 2025", "Comeback Player of the Year", etc.
+// `trophy` is optional
 
 const PLAYERS = [
   ["Ethan Diu","M",["PPYP"]],
@@ -106,7 +153,6 @@ const PLAYERS = [
   ["Michael Nyunt","M",["YF"]],
   ["Richard Lo","M",["YF"]],
   ["Brian Wong","M",["YF","PPYP","YS"]],
-  /*
   ["Anna Hou","F",["YF"]],
   ["Dharmesh Desai","M",["YF","PPYP"]],
   ["Hannah Ma","F",["YF"]],
@@ -124,7 +170,9 @@ const PLAYERS = [
   ["Matty Juan","M",["YS"]],
   ["Wilson Kwong","M",["YS"]],
   ["Tyrone Lau","M",["YS"]],
-  ["Rex Mercado","M",["YS"]]
+  ["Rex Mercado","M",["YS"]],
+  /*
+  ["Germaine Loke","F",["PPYP"]],
   */
 ].map(([name, gender, teams]) => ({
   name,
@@ -473,7 +521,7 @@ function renderMeta(){
         est.className = "team-est";
 
         desc.textContent =
-            "The current lineup of all players across our rosters.";
+            "Our teams play across both NSU and Hills.";
 
         return;
     }
