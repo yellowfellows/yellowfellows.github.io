@@ -585,18 +585,20 @@ function renderStage(fade){
 }
 
 // Thumbs are positioned with `left`/`top` as percentages, and .thumb has no
-// positioned ancestor between it and .stage-wrap (see #thumbRow in
-// index.html) -- so a percentage here is *always* relative to stage-wrap's
-// own box. No window measurements, no manual offset fudging.
+// positioned ancestor between it and .stage-photo (see #thumbRow in
+// index.html, nested inside #stagePhoto) -- so a percentage here is
+// *always* relative to stage-photo's own box (i.e. the video/cutout zone),
+// never the info-card or the rest of the stage. No window measurements,
+// no manual offset fudging.
 const thumbPositions = new Map();
 
 const THUMB_SIZE   = 86;              // desktop default -- must match .thumb width/height in CSS
 const THUMB_GAP    = 30;              // desktop default -- minimum breathing room between neighbouring thumbs
-const FRAME_INSET  = THUMB_SIZE / 6; // negative = the travel path sits outside stage-wrap's
+const FRAME_INSET  = THUMB_SIZE / 6; // negative = the travel path sits outside stage-photo's
                                        // edges, so each thumb straddles the border half in/half out
 
-// Responsive thumb sizing -- on mobile the stage-wrap stacks into a much
-// narrower/taller box, so a fixed 86px thumb + 30px gap can't fit 26+
+// Responsive thumb sizing -- on mobile the stage-photo box becomes a much
+// narrower/shorter frame, so a fixed 86px thumb + 30px gap can't fit 26+
 // players around the perimeter without overlapping. These breakpoints
 // mirror the .thumb width/height media queries in styles.css so the JS
 // layout math and the CSS visuals always agree.
@@ -633,8 +635,8 @@ function pointOnFrame(dist, rw, rh){
 }
 
 // Places any not-yet-positioned slugs around a rectangle inset (or, with a
-// negative FRAME_INSET, expanded) from the stage-wrap box, storing each as a
-// stage-wrap-relative percentage. Already-placed slugs are left alone, so
+// negative FRAME_INSET, expanded) from the stage-photo box, storing each as a
+// stage-photo-relative percentage. Already-placed slugs are left alone, so
 // thumbs stay put across re-renders and team switches.
 function layoutThumbs(slugs, containerW, containerH){
   const unplaced = slugs.filter(s => !thumbPositions.has(s));
@@ -665,7 +667,7 @@ function layoutThumbs(slugs, containerW, containerH){
     if(spot.edge === "top" || spot.edge === "bottom") py += perp;
     else px += perp;
 
-    // back into stage-wrap-relative coords, then to a %
+    // back into stage-photo-relative coords, then to a %
     thumbPositions.set(slug, {
       x: ((inset + px) / containerW) * 100,
       y: ((inset + py) / containerH) * 100
@@ -680,24 +682,6 @@ function currentSlug(){
   const roster = rosterFor(activeTeam);
   const p = roster[activeIndex[activeTeam ?? "ALL"]];
   return p ? slugify(p.name) : null;
-}
-
-// Below 760px the thumb row gives up on the perimeter scatter (see
-// layoutThumbs) and becomes a plain horizontal, swipeable strip -- see
-// the matching ".thumb-row" rules in the 760px media query in styles.css.
-function isMobileThumbLayout(){
-  return window.innerWidth <= 760;
-}
-
-// On the mobile strip, keep the current player's thumb scrolled into
-// view instead of leaving the person to go hunt for it -- e.g. after
-// stepping with the arrows or after a team switch changes who's selected.
-function scrollSelectedIntoView(instant){
-  if(!isMobileThumbLayout()) return;
-  const row = document.getElementById("thumbRow");
-  const el = row && row.querySelector(".thumb.selected");
-  if(!el || !el.scrollIntoView) return;
-  el.scrollIntoView({ behavior: instant ? "auto" : "smooth", inline: "center", block: "nearest" });
 }
 
 // Drives all three thumb states in one pass:
@@ -718,27 +702,20 @@ function updateThumbStates(){
     el.classList.toggle("active", activeSet.has(key));
     el.classList.toggle("selected", key === selected);
   });
-
-  scrollSelectedIntoView(false);
 }
 
 // Creates the thumb elements once, laid out around the stage frame, and
 // plays a staggered fade+scale entrance. Called only the first time
 // renderThumbs runs for this page load.
 function buildThumbs(row){
-  const mobile = isMobileThumbLayout();
   const roster = rosterFor(null); // IMPORTANT: ALL PLAYERS always, fixed order
 
-  row.classList.toggle("thumb-row-mobile", mobile);
-
-  if(!mobile){
-    const wrap = row.closest(".stage-wrap") || row;
-    const rect = wrap.getBoundingClientRect();
-    const containerW = rect.width || 1000;
-    const containerH = rect.height || 480;
-    const slugs = roster.map(p => slugify(p.name));
-    layoutThumbs(slugs, containerW, containerH);
-  }
+  const wrap = row.closest(".stage-photo") || row;
+  const rect = wrap.getBoundingClientRect();
+  const containerW = rect.width || 1000;
+  const containerH = rect.height || 480;
+  const slugs = roster.map(p => slugify(p.name));
+  layoutThumbs(slugs, containerW, containerH);
 
   row.innerHTML = "";
 
@@ -749,20 +726,15 @@ function buildThumbs(row){
     t.className = "thumb";
     t.dataset.key = slug;
 
-    if(mobile){
-      // static flex item -- no perimeter coordinates needed
-      t.style.opacity = "0";
-      t.style.transform = "scale(0.5)";
-    } else {
-      const pos = thumbPositions.get(slug);
-      t.style.left = pos.x + "%";
-      t.style.top = pos.y + "%";
+    const pos = thumbPositions.get(slug);
+    t.style.left = pos.x + "%";
+    t.style.top = pos.y + "%";
 
-      // entrance state -- transitioned away below, riding the same
-      // opacity/transform transition used for the highlight/dim fade
-      t.style.opacity = "0";
-      t.style.transform = "translate(-50%, -50%) scale(0.3)";
-    }
+    // entrance state -- transitioned away below, riding the same
+    // opacity/transform transition used for the highlight/dim fade
+    t.style.opacity = "0";
+    t.style.transform = "translate(-50%, -50%) scale(0.3)";
+
     t.style.transitionDelay = (Math.min(i, 24) * 16) + "ms";
 
     t.innerHTML = `
@@ -877,6 +849,40 @@ function setupFieldBg(){
   img.src = "images/field.png";
 }
 
+// Lets a swipe on the stage photo itself (video + player cutout) step
+// to the next/previous player, same as tapping the arrows -- handy on
+// mobile where the arrows sit off to the side rather than on the photo.
+function setupStageSwipe(){
+  const photo = document.getElementById("stagePhoto");
+  if(!photo) return;
+
+  const SWIPE_THRESHOLD = 40; // px -- minimum horizontal travel to count as a swipe
+  let startX = 0, startY = 0, tracking = false;
+
+  photo.addEventListener("touchstart", (e)=>{
+    if(e.touches.length !== 1) return;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    tracking = true;
+  }, { passive: true });
+
+  photo.addEventListener("touchend", (e)=>{
+    if(!tracking) return;
+    tracking = false;
+
+    const touch = e.changedTouches[0];
+    const dx = touch.clientX - startX;
+    const dy = touch.clientY - startY;
+
+    // Mostly-vertical drags are left alone so the page can still scroll.
+    if(Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) < Math.abs(dy)) return;
+
+    step(dx < 0 ? 1 : -1);
+  }, { passive: true });
+
+  photo.addEventListener("touchcancel", ()=>{ tracking = false; }, { passive: true });
+}
+
 function setupRosterPage(){
   if(!document.getElementById("stage")) return;
   document.addEventListener("click", (e)=>{
@@ -884,6 +890,7 @@ function setupRosterPage(){
     if(e.target.closest(".arrow-right")) step(1);
   });
   setupFieldBg();
+  setupStageSwipe();
   renderRosterAll();
 }
 

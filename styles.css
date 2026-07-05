@@ -373,6 +373,25 @@ section.block:first-of-type{ margin-top: 20px; }
       inset 0 0 80px rgba(0,0,0,0.35);
 }
 
+/* Wraps just the video/scrim/player-figure (+ the thumb perimeter --
+   see .thumb-row below) so this box, not the whole .stage-wrap, is what
+   the thumbs scatter around and what the mobile frame/border hugs.
+   On desktop it simply fills .stage-wrap exactly like .stage-video used
+   to on its own, so nothing here changes the desktop look. */
+.stage-photo{
+  position: absolute;
+  inset: 0;
+}
+
+/* Clips the video's square corners to match the mobile frame's
+   border-radius. Overflow stays hidden only here -- .stage-photo itself
+   stays overflow:visible so thumbs that straddle the frame's edge
+   (see FRAME_INSET in script.js) never get cropped. */
+.stage-photo-inner{
+  position: absolute;
+  inset: 0;
+}
+
 .stage-video{
     position: absolute;
     inset: 0;
@@ -650,8 +669,11 @@ section.block:first-of-type{ margin-top: 20px; }
 
 /* Purely a positioning context -- not itself positioned, so it doesn't
    introduce a new containing block. .thumb children are position:absolute
-   and sit directly on top of .stage-wrap (their nearest positioned
-   ancestor), so their left/top percentages are stage-wrap-relative. */
+   and sit directly on top of .stage-photo (their nearest positioned
+   ancestor -- see index.html, where .thumb-row lives inside .stage-photo
+   rather than .stage-wrap), so their left/top percentages are always
+   relative to the photo/video box, never the info-card or the rest of
+   the stage. */
 .thumb-row{
   margin: 0;
 }
@@ -826,12 +848,19 @@ footer.site-footer{
 /* ---------- MOBILE / STAGE RESPONSIVE ---------- */
 /*
   Mobile trades the desktop "floating comic panel" for a plain stacked
-  card: a fixed-height photo zone up top (video + cutout + nav arrows),
-  then the info card in normal document flow below it, then the thumbs
-  as a horizontal swipeable strip. --photo-h is the single source of
-  truth for the photo zone's height -- the video, the cutout, and the
-  arrows' vertical centering all reference it, so they can't drift out
-  of sync with each other.
+  card: a fixed-height photo zone up top (video + cutout + nav arrows +
+  the thumb perimeter), then the info card in normal document flow below
+  it. --photo-h is the single source of truth for the photo zone's
+  height -- the video, the cutout, and the arrows' vertical centering
+  all reference it, so they can't drift out of sync with each other.
+
+  The photo zone's frame (border/radius/shadow) lives on .stage-photo,
+  not .stage-wrap, so it hugs just the video+thumbs box instead of
+  stretching around the info-card stacked underneath. .stage-photo
+  itself stays overflow:visible so the thumbs scattered around its edge
+  (see FRAME_INSET in script.js) aren't clipped -- only the inner
+  .stage-photo-inner (holding the video/scrim/cutout) clips, to round
+  off the video's square corners.
 */
 @media (max-width:760px){
   .wrap{ padding-top:118px; }
@@ -843,14 +872,22 @@ footer.site-footer{
     min-height: 0;
     padding: 0;
 
+    border: none;
+    box-shadow: none;
+  }
+
+  .stage-photo{
+    position: relative;
+    height: var(--photo-h);
+
     border-radius: 22px;
-    overflow: hidden;
     border: 1px solid rgba(255,255,255,0.14);
     box-shadow: 0 22px 55px rgba(0,0,0,0.55);
   }
 
-  .stage-video{
-    height: var(--photo-h);
+  .stage-photo-inner{
+    border-radius: 22px;
+    overflow: hidden;
   }
 
   .stage-scrim{
@@ -905,7 +942,7 @@ footer.site-footer{
      tag still anchor to the card itself rather than the whole stage. */
   .info-card{
     position: relative;
-    width: auto;
+    width: 98%;
     max-width: none;
     margin: 18px 16px 0;
 
@@ -921,40 +958,6 @@ footer.site-footer{
   .info-card.fade{
     opacity: 0;
     transform: translateY(8px);
-  }
-
-  /* Thumbs become a horizontal, swipeable strip instead of a perimeter
-     scatter -- easier to scan and tap with a thumb than to chase dots
-     around the whole card. See script.js buildThumbs()/isMobileThumbLayout(). */
-  .thumb-row{
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    margin: 18px 0 0;
-    padding: 6px 16px 20px;
-
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x proximity;
-    -webkit-overflow-scrolling: touch;
-  }
-  .thumb-row::-webkit-scrollbar{ display: none; }
-
-  .thumb-row .thumb{
-    position: static;
-    flex: 0 0 auto;
-    scroll-snap-align: center;
-  }
-  .thumb-row .thumb,
-  .thumb-row .thumb:hover,
-  .thumb-row .thumb.active{
-    transform: none;
-  }
-  .thumb-row .thumb:hover{ opacity:0.85; }
-  .thumb-row .thumb.selected{
-    transform: translateY(-3px) scale(1.16);
-    z-index: 2;
   }
 
   .thumb{ width:62px; height:62px; }
