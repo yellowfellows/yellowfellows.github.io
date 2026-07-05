@@ -960,6 +960,8 @@ footer.site-footer{
   .stage-wrap{ --photo-h: min(48vh, 360px); }
   .player-stat-row{ grid-template-columns:1fr; }
   .thumb{ width:48px; height:48px; }
+  .arrow-left{ left: -6px; }
+  .arrow-right{ right: -6px; }
 }
 
 @media (max-width:420px){
