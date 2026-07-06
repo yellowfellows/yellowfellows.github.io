@@ -37,7 +37,7 @@ const PLAYER_INFO = {
   "Andrew Chen": {
     nickname: "T-Bone",
     quote: "Did someone say wings?",
-    funfact: "Andrew has a hucking arm worthy of the Winter Soldier. Fortunately for his opponents, he spends most of his time on the sideline.",
+    funfact: "Andrew has a forehand huck worthy of the Winter Soldier, populating the night sky with a ludicrously fast UFO. Fortunately for his opponents, he prefers to spend his time on the sideline.",
     started: "2020",
     trophy: "Hucking Machine"
   },
@@ -45,9 +45,9 @@ const PLAYER_INFO = {
   "Angle Line": {
     nickname: "",
     quote: "Ooh look, a plane!",
-    funfact: "She can huck, catch, and dive - watch out! Angle is a one-(wo)man army when she's on the field. If you try to talk to her she'll find a way to bring up glow worms one way or the other.",
+    funfact: "The incredible Angle Line can handle, huck, and score in the same sequence. Due to this truly impressive feat, any poor soul assigned to mark her is left behind in a different century.",
     started: "2024",
-    trophy: ""
+    trophy: "Handle with care"
   },
 
   "Anna Hou": {
@@ -60,22 +60,22 @@ const PLAYER_INFO = {
   "Brian Wong": {
     nickname: "Michael Reeves",
     quote: "Well, well, well.",
-    funfact: "When he's attacking the disc, guard him hard. When he's attacking your food, guard your food.",
+    funfact: "When he's attacking the disc, guard him hard. Once Brian swipes his first catch, the disc will give and go right into the endzone. ...When he's attacking your food, guard your food.",
     started: "2023",
   },
 
   "Caleb Cheung": {
     nickname: "",
     quote: "How sad for you.",
-    funfact: "You ever see that Willem Dafoe clip where he's helplessly looking up at the sky? Anyone who's tried to mark Caleb will understand.",
+    funfact: "You ever see that Willem Dafoe clip where he's helplessly looking up at the sky? Meet Caleb, who has a truly phenomenal reach and will absolutely abuse it to score on you without a second thought.",
     started: "2019",
     trophy: "Unguardable"
   },
 
   "Dharmesh Desai": {
     nickname: "Chief",
-    quote: "You f*** ch***r",
-    funfact: "It's a bird! It's a plane! Just kidding, it's a hammer from Dharmesh.",
+    quote: "Could you opine on that?",
+    funfact: "It's a bird! It's a plane! Just kidding, it's a hammer from Dharmesh. His cuts and strikes on the field are brutal and efficient, and his aggressive playstyle will quickly punish latent defenders.",
     started: "2021",
     trophy: "God of Hammers"
   },
@@ -83,7 +83,14 @@ const PLAYER_INFO = {
   "Ethan Diu": {
     nickname: "",
     quote: "Bastard fricker",
-    funfact: "If you're playing man defense against Ethan, you had better be in a car that can reach at least Mach 2. If you look carefully, the black 'paint' on his shoes isn't actually paint.",
+    funfact: "If you look carefully, the black 'paint' on his shoes isn't actually paint. Ethan will cause problems for your own team's so-called 'fastest' player, and he can effortlessly switch from handling to scoring in the blink of an eye.",
+    started: "2025",
+  },
+
+  "Felicity Chu": {
+    nickname: "Science",
+    quote: "Okay.",
+    funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     started: "2025",
   },
 
@@ -94,23 +101,24 @@ const PLAYER_INFO = {
     started: "2021",
   },
 
-  "Felicity Chu": {
-    nickname: "Science",
-    quote: "Okay.",
-    funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    started: "2025",
+  "Karlon Tse": {
+    nickname: "",
+    quote: "I quote you three dollars",
+    funfact: "Karlon's form is picture perfect, and his handling style is more akin to a dance than a sport - gliding through the field, snatching discs from the air and effortlessly swishing them down the line for a score.",
+    started: "2021",
+    trophy: "Married",
   },
 
   "Margaux Choo": {
     nickname: "Maggot",
     quote: "Do you feel in charge?",
-    funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    funfact: "Make the mistake of underestimating Margaux and she'll poke holes in your playbook until it collapses. Strangely enough, 'Maggot' has somehow become an endearing term, though best not to use it if you don't know her.",
     started: "2023",
   },
 
   "Michael Lau": {
-    nickname: "Mikael Wowzy",
-    quote: "SWING THE DISC",
+    nickname: "",
+    quote: "RUN THE HEX",
     funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     started: "2019",
   },
@@ -118,7 +126,7 @@ const PLAYER_INFO = {
   "Michael Nyunt": {
     nickname: "DDS Goon God",
     quote: "Big stepper-r-r-",
-    funfact: "A Wushu Warrior from a time long past, Michael has extensive experience in every role on the field.",
+    funfact: "A Wushu Warrior from a time long past, Michael has extensive experience on the field. Once he builds momentum, he'll fluidly slip between role to role, from plugging dump space to total denial of bad throws.",
     started: "2019",
   },
 
@@ -132,7 +140,7 @@ const PLAYER_INFO = {
   "Richard Lo": {
     nickname: "Gout Gout",
     quote: "Go long!",
-    funfact: "If you feel palpitations, you're either struggling to guard Richard or you're a freshly shucked pacific oyster.",
+    funfact: "If you're feeling the heat, you're either struggling to guard him as he floats into the endzone... or you're a freshly shucked pacific oyster. Richard dominates the handler space and will unfailingly release the disc into safer space.",
     started: "2020"
   },
 
