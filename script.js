@@ -37,15 +37,15 @@ const PLAYER_INFO = {
   "Andrew Chen": {
     nickname: "T-Bone",
     quote: "Did someone say wings?",
-    funfact: "Andrew has a forehand huck worthy of the Winter Soldier, populating the night sky with a ludicrously fast UFO. Fortunately for his opponents, he prefers to spend his time on the sideline.",
+    funfact: "You would be forgiven for assuming he has cannons for arms. With effortless power behind every shot, Andrew populates the night sky with ludicrously fast UFOs. Fortunately for his opponents, he prefers to spend his time on the sideline.",
     started: "2020",
     trophy: "Hucking Machine"
   },
 
   "Angle Line": {
     nickname: "",
-    quote: "Ooh look, a plane!",
-    funfact: "The incredible Angle Line can handle, huck, and score in the same sequence. Due to this truly impressive feat, any poor soul assigned to mark her is left behind in a different century.",
+    quote: "A Globemaster!",
+    funfact: "The incredible Angle Line can handle, huck, and score in the span of a few seconds. If she scores on you, that's okay - it's not your fault, she's simply better than you are.",
     started: "2024",
     trophy: "Handle with care"
   },
@@ -60,7 +60,7 @@ const PLAYER_INFO = {
   "Brian Wong": {
     nickname: "Michael Reeves",
     quote: "Well, well, well.",
-    funfact: "When he's attacking the disc, guard him hard. Once Brian swipes his first catch, the disc will give and go right into the endzone. ...When he's attacking your food, guard your food.",
+    funfact: "Once Brian claims his first catch, the disc will give and go right into the endzone. Disrespect his zone and you'll find yourself back on defence before you know it.",
     started: "2023",
   },
 
@@ -75,7 +75,7 @@ const PLAYER_INFO = {
   "Dharmesh Desai": {
     nickname: "Chief",
     quote: "Could you opine on that?",
-    funfact: "It's a bird! It's a plane! Just kidding, it's a hammer from Dharmesh. His cuts and strikes on the field are brutal and efficient, and his aggressive playstyle will quickly punish latent defenders.",
+    funfact: "Dharmesh's cuts and strikes on offence are brutal and efficient, and his aggressive playstyle will quickly punish latent defenders. No matter where the position, once he has the disc you had better guard your endzone tightly.",
     started: "2021",
     trophy: "God of Hammers"
   },
@@ -83,7 +83,7 @@ const PLAYER_INFO = {
   "Ethan Diu": {
     nickname: "",
     quote: "Bastard fricker",
-    funfact: "If you look carefully, the black 'paint' on his shoes isn't actually paint. Ethan will cause problems for your own team's so-called 'fastest' player, and he can effortlessly switch from handling to scoring in the blink of an eye.",
+    funfact: "Ethan will cause problems for your own team's so-called 'fastest' player, as he can effortlessly switch from handling to scoring in the blink of an eye. If you look carefully, the black 'paint' on his shoes isn't actually paint.",
     started: "2025",
   },
 
@@ -112,7 +112,7 @@ const PLAYER_INFO = {
   "Margaux Choo": {
     nickname: "Maggot",
     quote: "Do you feel in charge?",
-    funfact: "Make the mistake of underestimating Margaux and she'll poke holes in your playbook until it collapses. Strangely enough, 'Maggot' has somehow become an endearing term, though best not to use it if you don't know her.",
+    funfact: "Margaux's presence on the field opens up a world of options for her team. Make the silly mistake of underestimating her and she'll tear holes right through your playbook.",
     started: "2023",
   },
 
@@ -126,7 +126,7 @@ const PLAYER_INFO = {
   "Michael Nyunt": {
     nickname: "DDS Goon God",
     quote: "Big stepper-r-r-",
-    funfact: "A Wushu Warrior from a time long past, Michael has extensive experience on the field. Once he builds momentum, he'll fluidly slip between role to role, from plugging dump space to total denial of bad throws.",
+    funfact: "A Wushu Warrior from a time long past, Michael has extensive experience on the field. Once he builds momentum, he'll fluidly slip between role to role, from plugging team dump space to total denial of opponent continuations.",
     started: "2019",
   },
 
@@ -140,7 +140,7 @@ const PLAYER_INFO = {
   "Richard Lo": {
     nickname: "Gout Gout",
     quote: "Go long!",
-    funfact: "If you're feeling the heat, you're either struggling to guard him as he floats into the endzone... or you're a freshly shucked pacific oyster. Richard dominates the handler space and will unfailingly release the disc into safer space.",
+    funfact: "Richard dominates the handler space and will unfailingly release the disc into safer territory. If you're feeling the heat, you're either struggling to guard him as he floats into the endzone... or you're a freshly shucked pacific oyster.",
     started: "2020"
   },
 
