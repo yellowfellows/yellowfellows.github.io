@@ -407,7 +407,7 @@ section.block:first-of-type{ margin-top: 20px; }
 
 .player-figure{
   position: absolute;
-  left: -12px;
+  left: 64px;
   bottom: 0px;
   flex: 1;
 
