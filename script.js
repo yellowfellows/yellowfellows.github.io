@@ -44,7 +44,7 @@ const PLAYER_INFO = {
 
   "Angle Line": {
     nickname: "",
-    quote: "A Globemaster!",
+    quote: "Look at my shoulder!",
     funfact: "The incredible Angle Line can handle, huck, and score in the span of a few seconds. If she scores on you, that's okay - it's not your fault, she's simply better than you are.",
     started: "2024",
     trophy: "Handle with care"
@@ -68,13 +68,13 @@ const PLAYER_INFO = {
     nickname: "",
     quote: "How sad for you.",
     funfact: "You ever see that Willem Dafoe clip where he's helplessly looking up at the sky? Meet Caleb, who has a truly phenomenal reach and will absolutely abuse it to score on you without a second thought.",
-    started: "2019",
+    started: "2018",
     trophy: "Unguardable"
   },
 
   "Dharmesh Desai": {
     nickname: "Chief",
-    quote: "Could you opine on that?",
+    quote: "READ IT READ IT",
     funfact: "Dharmesh's cuts and strikes on offence are brutal and efficient, and his aggressive playstyle will quickly punish latent defenders. No matter where the position, once he has the disc you had better guard your endzone tightly.",
     started: "2021",
     trophy: "God of Hammers"
@@ -111,14 +111,15 @@ const PLAYER_INFO = {
 
   "Margaux Choo": {
     nickname: "Maggot",
-    quote: "Do you feel in charge?",
+    quote: "URHGgphFefhfHGghhh",
     funfact: "Margaux's presence on the field opens up a world of options for her team. Make the silly mistake of underestimating her and she'll tear holes right through your playbook.",
     started: "2023",
+    trophy: "Open 9-5"
   },
 
   "Michael Lau": {
     nickname: "",
-    quote: "RUN THE HEX",
+    quote: "CHASE IT CHASE IT",
     funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     started: "2019",
   },
