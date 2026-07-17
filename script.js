@@ -69,7 +69,7 @@ const PLAYER_INFO = {
     quote: "How sad for you.",
     funfact: "You ever see that Willem Dafoe clip where he's helplessly looking up at the sky? Meet Caleb, who has a truly phenomenal reach and will absolutely abuse it to score on you without a second thought.",
     started: "2018",
-    trophy: "Unguardable"
+    trophy: "Air Traffic Controller"
   },
 
   "Dharmesh Desai": {
@@ -99,6 +99,7 @@ const PLAYER_INFO = {
     quote: "I'm so early!",
     funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     started: "2021",
+    trophy: "Fumbler"
   },
 
   "Karlon Tse": {
@@ -155,31 +156,31 @@ const PLAYER_INFO = {
 // `trophy` is optional
 
 const PLAYERS = [
-  ["Ethan Diu","M",["PPYP"]],
-  ["Angle Line","F",["PPYP","YS"]],
-  ["Caleb Cheung","M",["YF","PPYP"]],
-  ["Andrew Chen","M",["YF","PPYP","YS"]],
-  ["Michael Nyunt","M",["YF"]],
-  ["Richard Lo","M",["YF"]],
-  ["Brian Wong","M",["YF","PPYP","YS"]],
-  ["Anna Hou","F",["YF"]],
   ["Dharmesh Desai","M",["YF","PPYP"]],
-  ["Hannah Ma","F",["YF"]],
-  ["Felicity Chu","F",["YF","PPYP"]],
-  ["Natalie Hwang","F",["YF","PPYP"]],
-  ["Margaux Choo","F",["YF","PPYP","YS"]],
   ["Michael Lau","M",["YF","PPYP","YS"]],
-  ["Jess Zhang","F",["PPYP"]],
+  ["Andrew Chen","M",["YF","PPYP","YS"]],
+  ["Angle Line","F",["PPYP","YS"]],
+  ["Anna Hou","F",["YF"]],
+  ["Brian Wong","M",["YF","PPYP","YS"]],
+  ["Caleb Cheung","M",["YF","PPYP"]],
   ["Damien Teh","M",["PPYP"]],
+  ["Ethan Diu","M",["PPYP"]],
+  ["Felicity Chu","F",["YF","PPYP"]],
+  ["Hannah Ma","F",["YF"]],
+  ["Jess Zhang","F",["PPYP"]],
+  ["Jessie Wong","F",["YS"]],
   ["Joel Anderson","M",["PPYP"]],
   ["Julian Kok","M",["PPYP"]],
   ["Karlon Tse","M",["PPYP"]],
-  ["Jessie Wong","F",["YS"]],
-  ["Melva Tang","F",["YS"]],
+  ["Margaux Choo","F",["YF","PPYP","YS"]],
   ["Matty Juan","M",["YS"]],
-  ["Wilson Kwong","M",["YS"]],
-  ["Tyrone Lau","M",["YS"]],
+  ["Melva Tang","F",["YS"]],
+  ["Michael Nyunt","M",["YF"]],
+  ["Natalie Hwang","F",["YF","PPYP"]],
   ["Rex Mercado","M",["YS"]],
+  ["Richard Lo","M",["YF"]],
+  ["Tyrone Lau","M",["YS"]],
+  ["Wilson Kwong","M",["YS"]],
   /*
   ["Germaine Loke","F",["PPYP"]],
   */
