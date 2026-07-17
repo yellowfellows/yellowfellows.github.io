@@ -444,6 +444,17 @@ function setupNav(){
     link.addEventListener("click", closeNav);
   });
 
+  // Tapping outside the menu should close it. Note that .site-nav is
+  // itself the fixed, full-screen blurred backdrop on mobile (it just
+  // centers its links in the middle), so "outside" here means either
+  // truly outside the nav element, or inside it but not on a link.
+  document.addEventListener("click", (e)=>{
+    if(!nav.classList.contains("open")) return;
+    if(btn.contains(e.target)) return;
+    if(nav.contains(e.target) && e.target.closest("a")) return;
+    closeNav();
+  });
+
   // Crossing the mobile breakpoint (resize/rotate) shouldn't leave a
   // stale open dropdown or a "toggled" logo state behind.
   let resizeTimer = null;
