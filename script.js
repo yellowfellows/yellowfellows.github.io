@@ -37,31 +37,33 @@ const PLAYER_INFO = {
   "Andrew Chen": {
     nickname: "T-Bone",
     quote: "Did someone say wings?",
-    funfact: "You would be forgiven for assuming he has cannons for arms. With effortless power behind every shot, Andrew populates the night sky with ludicrously fast UFOs. Fortunately for his opponents, he prefers to spend his time on the sideline.",
+    funfact: "You would be forgiven for assuming he has cannons for arms, as Andrew populates the night sky with ludicrously fast UFOs. Fortunately for his opponents, he prefers to spend his time on the sideline.",
     started: "2020",
-    trophy: "Hucking Machine"
+    trophy: "Great Wall of China"
   },
 
   "Angle Line": {
     nickname: "",
     quote: "Look at my shoulder!",
-    funfact: "The incredible Angle Line can handle, huck, and score in the span of a few seconds. If she scores on you, that's okay - it's not your fault, she's simply better than you are.",
+    funfact: "The incredible Angle Line can handle, huck, and score in the span of a few seconds. She has a party trick with her knees she likes to show people.",
     started: "2024",
-    trophy: "Handle with care"
+    trophy: "MVP"
   },
 
   "Anna Hou": {
     nickname: "Bananna",
     quote: "Where are we playing tonight?",
-    funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    funfact: "When she is not lost in a different suburb, Anna is one of the team's strongest scorers.",
     started: "2023",
+    trophy: "Catch-22"
   },
 
   "Brian Wong": {
     nickname: "Michael Reeves",
     quote: "Well, well, well.",
-    funfact: "Once Brian claims his first catch, the disc will give and go right into the endzone. Disrespect his zone and you'll find yourself back on defence before you know it.",
+    funfact: "Brian plays quickly and smoothly to bring the disc right into the endzone. Guard him, and guard your food.",
     started: "2023",
+    trophy: "Blade Runner"
   },
 
   "Caleb Cheung": {
@@ -69,14 +71,14 @@ const PLAYER_INFO = {
     quote: "How sad for you.",
     funfact: "You ever see that Willem Dafoe clip where he's helplessly looking up at the sky? Meet Caleb, who has a truly phenomenal reach and will absolutely abuse it to score on you without a second thought.",
     started: "2018",
-    trophy: "Air Traffic Controller"
+    trophy: "No Fly Zone"
   },
 
   "Dharmesh Desai": {
     nickname: "Chief",
     quote: "READ IT READ IT",
     funfact: "Dharmesh's cuts and strikes on offence are brutal and efficient, and his aggressive playstyle will quickly punish latent defenders. No matter where the position, once he has the disc you had better guard your endzone tightly.",
-    started: "2021",
+    started: "2020",
     trophy: "God of Hammers"
   },
 
@@ -85,19 +87,21 @@ const PLAYER_INFO = {
     quote: "Bastard fricker",
     funfact: "Ethan will cause problems for your own team's so-called 'fastest' player, as he can effortlessly switch from handling to scoring in the blink of an eye. If you look carefully, the black 'paint' on his shoes isn't actually paint.",
     started: "2025",
+    trophy: "Speed Demon"
   },
 
   "Felicity Chu": {
     nickname: "Science",
     quote: "Okay.",
-    funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    funfact: "Felicity plays patiently, and if you don't watch her carefully she'll be wide open to receive a score.",
     started: "2025",
+    trophy: "Poached Egg"
   },
 
   "Hannah Ma": {
     nickname: "",
-    quote: "I'm so early!",
-    funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    quote: "Next week I promise",
+    funfact: "Hannah is incredibly quick, both on the field and also when heading home straight after a game.",
     started: "2021",
     trophy: "Fumbler"
   },
@@ -107,7 +111,7 @@ const PLAYER_INFO = {
     quote: "I quote you three dollars",
     funfact: "Karlon's form is picture perfect, and his handling style is more akin to a dance than a sport - gliding through the field, snatching discs from the air and effortlessly swishing them down the line for a score.",
     started: "2021",
-    trophy: "Married",
+    trophy: "Give-n-Go Goblin",
   },
 
   "Margaux Choo": {
@@ -121,8 +125,9 @@ const PLAYER_INFO = {
   "Michael Lau": {
     nickname: "",
     quote: "CHASE IT CHASE IT",
-    funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    funfact: "Michael is da captain but not always very switched on.",
     started: "2019",
+    trophy: "Dive Hard"
   },
 
   "Michael Nyunt": {
@@ -130,20 +135,23 @@ const PLAYER_INFO = {
     quote: "Big stepper-r-r-",
     funfact: "A Wushu Warrior from a time long past, Michael has extensive experience on the field. Once he builds momentum, he'll fluidly slip between role to role, from plugging team dump space to total denial of opponent continuations.",
     started: "2019",
+    trophy: "Death by a Thousand Cuts"
   },
 
   "Natalie Hwang": {
     nickname: "",
     quote: "Hang me from the cutting tree",
-    funfact: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    funfact: "Natalie attacks the disc aggressively, puncturing holes in the cup and also supporting the team to receive a huck in the endzone.",
     started: "2025",
+    trophy: "Ms Frisbee"
   },
 
   "Richard Lo": {
     nickname: "Gout Gout",
     quote: "Go long!",
     funfact: "Richard dominates the handler space and will unfailingly release the disc into safer territory. If you're feeling the heat, you're either struggling to guard him as he floats into the endzone... or you're a freshly shucked pacific oyster.",
-    started: "2020"
+    started: "2020",
+    trophy: "Dominator"
   },
 
   "x": {
@@ -163,26 +171,26 @@ const PLAYERS = [
   ["Anna Hou","F",["YF"]],
   ["Brian Wong","M",["YF","PPYP","YS"]],
   ["Caleb Cheung","M",["YF","PPYP"]],
-  ["Damien Teh","M",["PPYP"]],
   ["Ethan Diu","M",["PPYP"]],
   ["Felicity Chu","F",["YF","PPYP"]],
   ["Hannah Ma","F",["YF"]],
+  ["Karlon Tse","M",["PPYP"]],
+  ["Margaux Choo","F",["YF","PPYP","YS"]],
+  ["Michael Nyunt","M",["YF"]],
+  ["Natalie Hwang","F",["YF","PPYP"]],
+  ["Richard Lo","M",["YF"]],
+  /*
+  ["Damien Teh","M",["PPYP"]],
+  ["Germaine Loke","F",["PPYP"]],
   ["Jess Zhang","F",["PPYP"]],
   ["Jessie Wong","F",["YS"]],
   ["Joel Anderson","M",["PPYP"]],
   ["Julian Kok","M",["PPYP"]],
-  ["Karlon Tse","M",["PPYP"]],
-  ["Margaux Choo","F",["YF","PPYP","YS"]],
   ["Matty Juan","M",["YS"]],
   ["Melva Tang","F",["YS"]],
-  ["Michael Nyunt","M",["YF"]],
-  ["Natalie Hwang","F",["YF","PPYP"]],
   ["Rex Mercado","M",["YS"]],
-  ["Richard Lo","M",["YF"]],
   ["Tyrone Lau","M",["YS"]],
   ["Wilson Kwong","M",["YS"]],
-  /*
-  ["Germaine Loke","F",["PPYP"]],
   */
 ].map(([name, gender, teams]) => ({
   name,
