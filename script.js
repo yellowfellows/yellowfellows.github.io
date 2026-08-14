@@ -215,7 +215,7 @@ const TIMELINE = [
     description: "The very first time we played together."
   },
   {
-    img: "1",
+    img: "1a",
     date: "May 2024",
     caption: "Yellow Fellows is formed",
     description: "A reunion of Wushu Warriors and friends."
@@ -251,7 +251,7 @@ const TIMELINE = [
     description: "Group photo at North Ryde Park."
   },
   {
-    img: "3",
+    img: "3a",
     date: "May 2025",
     caption: "Yellow Fellows - NSU Winter 2025",
     description: "Joined by Natalie and Felicity."
@@ -285,6 +285,12 @@ const TIMELINE = [
     date: "Mar 2026",
     caption: "The Yellowship - Hills Summer 2026",
     description: "The last week of the season."
+  },
+  {
+    img: "16",
+    date: "Aug 2026",
+    caption: "The Yellowship - Hills Winter 2026",
+    description: "Another season done and dusted."
   },
 ];
 
